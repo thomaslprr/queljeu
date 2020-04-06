@@ -20,8 +20,6 @@ class findagame extends React.Component {
     }
 
 
-
-
     render() {
         const aCommence = this.state.questionnaireCommence;
         let button;
@@ -43,13 +41,10 @@ class findagame extends React.Component {
 
             </Head>
             <main>
-                <h1 className="title">
-                    Trouve ton  <a>jeu vidéo</a>
-                </h1>
 
-                <p className="description">
-                    Répond à 10 questions et trouve les meilleurs jeux fait pour toi !
-                </p>
+                <h1 className="title">
+                Trouve ton  <a>jeu vidéo</a>
+            </h1><p className="description">Répond à 10 questions et trouve les meilleurs jeux fait pour toi !</p>
 
                 {button}
 

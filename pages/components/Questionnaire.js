@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from "next/head";
+import PageDeQuestionPlateforme from "./PageDeQuestions/PageDeQuestionPlateforme";
 
 
 class Questionnaire extends React.Component {
@@ -10,7 +11,7 @@ class Questionnaire extends React.Component {
     }
 
     render() {
-        return <div> Question </div>
+        return <PageDeQuestionPlateforme />
     }
 
 
