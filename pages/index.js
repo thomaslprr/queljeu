@@ -89,7 +89,7 @@ const Home = () => (
       }
 
       .title a {
-        color: #0070f3;
+        color: #2185d0;
         text-decoration: none;
       }
 
@@ -149,8 +149,8 @@ const Home = () => (
       .card:hover,
       .card:focus,
       .card:active {
-        color: #0070f3;
-        border-color: #0070f3;
+        color: #2185d0;
+        border-color: #2185d0;
       }
 
       .card h3 {

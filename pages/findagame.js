@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from "next/head";
+import Questionnaire from "./components/Questionnaire";
 
 
 class findagame extends React.Component {
@@ -10,8 +11,30 @@ class findagame extends React.Component {
             questionnaireCommence: false
         };
     }
+
+    startClick() {
+        this.setState({
+            questionnaireCommence: true
+        }, ()=>console.log(this.state.questionnaireCommence));
+
+    }
+
+
+
+
     render() {
-        return <div className="container">
+        const aCommence = this.state.questionnaireCommence;
+        let button;
+        if (!aCommence) {
+            button = <button className="ui animated button massive blue" onClick={this.startClick.bind(this)}>
+                        <div className="visible content">Commencer</div>
+                        <div className="hidden content"><i aria-hidden="true" className="arrow right icon"></i></div>
+                    </button>;
+        } else {
+            button = <Questionnaire />;
+        }
+
+        return (<div className="container">
 
             <Head>
                 <title>QuelJeu</title>
@@ -27,6 +50,12 @@ class findagame extends React.Component {
                 <p className="description">
                     Répond à 10 questions et trouve les meilleurs jeux fait pour toi !
                 </p>
+
+                {button}
+
+
+
+
             </main>
 
             <footer>
@@ -81,7 +110,7 @@ class findagame extends React.Component {
       }
 
       .title a {
-        color: #0070f3;
+        color: #2185d0;
         text-decoration: none;
       }
 
@@ -178,7 +207,7 @@ class findagame extends React.Component {
       }
     `}</style>
 
-            </div>
+            </div>)
     }
 }
 
