@@ -3,6 +3,13 @@ import Head from "next/head";
 
 
 class findagame extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            questionnaireCommence: false
+        };
+    }
     render() {
         return <div className="container">
 
@@ -13,24 +20,13 @@ class findagame extends React.Component {
 
             </Head>
             <main>
-                <div className="ui card">
+                <h1 className="title">
+                    Trouve ton  <a>jeu vidéo</a>
+                </h1>
 
-                    <div className="content">
-                        <a className="header">Kristy</a>
-                        <div className="meta">
-                            <span className="date">Joined in 2013</span>
-                        </div>
-                        <div className="description">
-                            Kristy is an art director living in New York.
-                        </div>
-                    </div>
-                    <div className="extra content">
-                        <a>
-                            <i className="user icon"></i>
-                            22 Friends
-                        </a>
-                    </div>
-                </div>
+                <p className="description">
+                    Répond à 10 questions et trouve les meilleurs jeux fait pour toi !
+                </p>
             </main>
 
             <footer>
