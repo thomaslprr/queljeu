@@ -1,51 +1,47 @@
-import Head from 'next/head'
+import React from 'react'
+import Head from "next/head";
 
 
-const Home = () => (
-  <div className="container">
-    <Head>
-      <title>QuelJeu</title>
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
+class findagame extends React.Component {
+    render() {
+        return <div className="container">
 
-    </Head>
+            <Head>
+                <title>QuelJeu</title>
+                <link rel="icon" href="/favicon.ico" />
+                <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
 
-    <main>
-      <h1 className="title">
-        Bienvenue sur <a href="">Quel Jeu</a>
-      </h1>
+            </Head>
+            <main>
+                <div className="ui card">
 
-      <p className="description">
-        Trouve le jeu vidéo qui te convient parfaitement ! <code>Bonne découverte</code>
-      </p>
+                    <div className="content">
+                        <a className="header">Kristy</a>
+                        <div className="meta">
+                            <span className="date">Joined in 2013</span>
+                        </div>
+                        <div className="description">
+                            Kristy is an art director living in New York.
+                        </div>
+                    </div>
+                    <div className="extra content">
+                        <a>
+                            <i className="user icon"></i>
+                            22 Friends
+                        </a>
+                    </div>
+                </div>
+            </main>
 
-
-      <div className="grid">
-        <a href="/findagame" className="card">
-          <h3>Trouve ton jeu &rarr;</h3>
-          <p>Grâce à mon algorithme et une base de données remplie de milliers de jeux vidéos différents,
-              cet outil trouvera les meilleurs jeux fait pour toi.</p>
-        </a>
-
-          <a href="https://nextjs.org/docs" className="card">
-              <h3>Catalogue des jeux &rarr;</h3>
-              <p>Retrouve la liste de tous les jeux vidéos. Tu peux effectuer des recherches très
-              précises de manière simple et rapide !</p>
-          </a>
-
-      </div>
-    </main>
-
-    <footer>
-      <a
-        href=""
-        target="_blank"
-      >
-        Réalisé par Thomas Lapierre
-      </a>
-    </footer>
-
-    <style jsx>{`
+            <footer>
+                <a
+                    href=""
+                    target="_blank"
+                >
+                    Réalisé par Thomas Lapierre
+                </a>
+            </footer>
+            <style jsx>{`
       .container {
         min-height: 100vh;
         padding: 0 0.5rem;
@@ -172,7 +168,7 @@ const Home = () => (
       }
     `}</style>
 
-    <style jsx global>{`
+            <style jsx global>{`
       html,
       body {
         padding: 0;
@@ -185,7 +181,9 @@ const Home = () => (
         box-sizing: border-box;
       }
     `}</style>
-  </div>
-)
 
-export default Home
+            </div>
+    }
+}
+
+export default findagame;
