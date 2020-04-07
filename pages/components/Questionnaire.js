@@ -7,11 +7,25 @@ class Questionnaire extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state={
+            plateforme:[]
+        }
 
     }
 
+    setPlateforme(val){
+        this.setState({
+            plateforme: val
+        })
+    }
+
     render() {
-        return <PageDeQuestionPlateforme />
+        return (
+            <div>
+            <PageDeQuestionPlateforme modifierTableauPlateforme={this.setPlateforme.bind(this)} />
+            </div>
+        )
+
     }
 
 

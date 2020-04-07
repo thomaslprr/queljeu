@@ -15,6 +15,10 @@ class PageDeQuestionPlateforme extends React.Component {
 
     }
 
+    changerTableauPlateforme(){
+        this.props.modifierTableauPlateforme(this.state.listePlateforme);
+    }
+
     cliqueReponse(val,index){
 
         let liste= this.state.listePlateforme;
@@ -133,7 +137,7 @@ class PageDeQuestionPlateforme extends React.Component {
                 </a>
             </div>
 
-                <button className="ui button blue huge" >
+                <button className="ui button blue huge" onClick={this.changerTableauPlateforme.bind(this)} >
                     Suivant
                 </button>
 
