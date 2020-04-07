@@ -8,21 +8,38 @@ class Questionnaire extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            plateforme:[]
+            plateforme:[],
+            etape:1
         }
 
     }
 
     setPlateforme(val){
         this.setState({
-            plateforme: val
+            plateforme: val,
+            etape:2
         })
     }
 
+
+
     render() {
+        const numEtape = this.state.etape;
+        let questionnaire;
+
+        switch (numEtape) {
+            case 1:
+                questionnaire = <PageDeQuestionPlateforme modifierTableauPlateforme={this.setPlateforme.bind(this)} />;
+                break;
+            case 2:
+                questionnaire = <h3>Questionnaire numero 2</h3>;
+                break;
+
+        }
+
         return (
             <div>
-            <PageDeQuestionPlateforme modifierTableauPlateforme={this.setPlateforme.bind(this)} />
+                {questionnaire}
             </div>
         )
 
