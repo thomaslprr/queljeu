@@ -9,65 +9,11 @@ class PageDeQuestionGenre extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            listeGenres: [],
+            listeGenres: this.props.tabGenres,
             chargementdonnee:true,
             listeGenresSelectionnes: []
 
         }
-    }
-
-    remplirTableaux(){
-
-
-        let listeGenresUpdated = [] ;
-
-
-        for(let i =0;i<this.state.listeGenres.length;i++){
-
-
-            listeGenresUpdated=[...listeGenresUpdated,{
-                id: this.state.listeGenres[i].id,
-                created_at: this.state.listeGenres[i].created_at,
-                name: this.state.listeGenres[i].name,
-                slug: this.state.listeGenres[i].slug,
-                url: this.state.listeGenres[i].url,
-                style: "ui card",
-                texte: ""
-
-            }]
-
-        }
-
-        this.setState({
-            listeGenres: listeGenresUpdated
-        },()=>console.log(this.state.listeGenres));
-
-
-    }
-
-    async componentDidMount() {
-
-        axios({
-            url: ""+proxyCORS+"https://api-v3.igdb.com/genres",
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'user-key': userKey
-            },
-            data: "fields created_at,name,slug,updated_at,url; limit 500;"
-        })
-            .then(response => {
-                this.setState({
-                    chargementdonnee:false,
-                    listeGenres: response.data
-
-                },() => this.remplirTableaux())
-
-            })
-            .catch(err => {
-                console.error(err);
-            });
-
 
     }
 
@@ -75,9 +21,6 @@ class PageDeQuestionGenre extends React.Component {
         //this.props.modifierTableauPlateforme(this.state.listePlateforme);
     }
 
-    cliqueReponse1(){
-        console.log("ok");
-    }
 
     cliqueReponse(id){
 
@@ -121,9 +64,6 @@ class PageDeQuestionGenre extends React.Component {
 
         );
 
-
-
-
     }
 
     render() {
@@ -131,8 +71,10 @@ class PageDeQuestionGenre extends React.Component {
         let txtDonnee;
         let listeDesGenres;
 
-        if(this.state.chargementdonnee){
+        if(this.state.listeGenres  == "loading"){
             txtDonnee = <h1>Chargement des données</h1>
+        }else if(this.state.listeGenres =="err"){
+            txtDonnee = <h1>Erreur lors du chargement des données</h1>
         }else {
 
            listeDesGenres = this.state.listeGenres.map(({ id, name,style,texte}) => (

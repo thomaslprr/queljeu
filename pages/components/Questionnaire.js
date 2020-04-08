@@ -13,7 +13,8 @@ class Questionnaire extends React.Component {
         super(props);
         this.state={
             plateforme:[],
-            etape:1
+            etape:1,
+            valeurGenres: "loading"
         }
 
     }
@@ -23,6 +24,63 @@ class Questionnaire extends React.Component {
             plateforme: val,
             etape:2
         })
+    }
+
+    async componentDidMount() {
+
+        axios({
+            url: ""+proxyCORS+"https://api-v3.igdb.com/genres",
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'user-key': userKey
+            },
+            data: "fields created_at,name,slug,updated_at,url; limit 500;"
+        })
+            .then(response => {
+                this.setState({
+                    valeurGenres: response.data
+
+                },()=> this.remplirTableaux())
+
+            })
+            .catch(err => {
+                this.setState({
+                    valeurGenres: "err"
+                });
+                console.error(err);
+            });
+
+
+    }
+
+    remplirTableaux(){
+
+
+        let listeGenresUpdated = [] ;
+
+
+        for(let i =0;i<this.state.valeurGenres.length;i++){
+
+
+            listeGenresUpdated=[...listeGenresUpdated,{
+                id: this.state.valeurGenres[i].id,
+                created_at: this.state.valeurGenres[i].created_at,
+                name: this.state.valeurGenres[i].name,
+                slug: this.state.valeurGenres[i].slug,
+                url: this.state.valeurGenres[i].url,
+                style: "ui card",
+                texte: ""
+
+            }]
+
+        }
+
+        this.setState({
+            valeurGenres: listeGenresUpdated
+        });
+
+
     }
 
 
@@ -36,7 +94,7 @@ class Questionnaire extends React.Component {
                 questionnaire = <PageDeQuestionPlateforme modifierTableauPlateforme={this.setPlateforme.bind(this)} />;
                 break;
             case 2:
-                questionnaire = <PageDeQuestionGenre />;
+                questionnaire = <PageDeQuestionGenre tabGenres={this.state.valeurGenres} />;
                 break;
 
         }
