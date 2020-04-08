@@ -13,6 +13,7 @@ class Questionnaire extends React.Component {
         super(props);
         this.state={
             plateforme:[],
+            genre:[],
             etape:1,
             valeurGenres: "loading"
         }
@@ -22,9 +23,24 @@ class Questionnaire extends React.Component {
     setPlateforme(val){
         this.setState({
             plateforme: val,
-            etape:2
+        });
+        this.setEtape();
+    }
+
+    setGenre(val){
+        this.setState({
+            genre: val,
+        },()=>console.log(this.state.genre));
+        this.setEtape();
+    }
+
+    setEtape(){
+        this.setState({
+            etape: this.state.etape + 1
         })
     }
+
+
 
     async componentDidMount() {
 
@@ -94,7 +110,10 @@ class Questionnaire extends React.Component {
                 questionnaire = <PageDeQuestionPlateforme modifierTableauPlateforme={this.setPlateforme.bind(this)} />;
                 break;
             case 2:
-                questionnaire = <PageDeQuestionGenre tabGenres={this.state.valeurGenres} />;
+                questionnaire = <PageDeQuestionGenre tabGenres={this.state.valeurGenres} modifierTableauGenre={this.setGenre.bind(this)}/>;
+                break;
+            case 3:
+                questionnaire = <h3>Thème</h3>;
                 break;
 
         }

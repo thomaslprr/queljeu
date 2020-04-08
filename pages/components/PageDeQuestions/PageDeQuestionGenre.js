@@ -18,8 +18,8 @@ class PageDeQuestionGenre extends React.Component {
 
     }
 
-    changerTableauPlateforme(){
-        //this.props.modifierTableauPlateforme(this.state.listePlateforme);
+    changerTableauGenre(){
+        this.props.modifierTableauGenre(this.state.listeGenresSelectionnes);
     }
 
 
@@ -98,7 +98,7 @@ class PageDeQuestionGenre extends React.Component {
 
 
         return ( <div>
-                <h1 className="ui header center aligned">Plateforme</h1>
+                <h1 className="ui header center aligned">Genre</h1>
 
                 {txtDonnee}
 
@@ -106,12 +106,14 @@ class PageDeQuestionGenre extends React.Component {
 
                     {listeDesGenres}
 
-
-
-
                 </div>
 
                 <ResetQuizzButton/>
+
+                <button className="ui vertical animated button blue huge" onClick={this.changerTableauGenre.bind(this)}>
+                    <div className="hidden content">Suivant</div>
+                    <div className="visible content"><i aria-hidden="true" className="arrow right icon"></i></div>
+                </button>
 
 
 
