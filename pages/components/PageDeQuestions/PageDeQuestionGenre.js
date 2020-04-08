@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from "next/head";
 import axios from "axios";
+import ResetQuizzButton from "../ResetQuizzButton";
 
 
 
@@ -109,6 +110,8 @@ class PageDeQuestionGenre extends React.Component {
 
 
                 </div>
+
+                <ResetQuizzButton/>
 
 
 

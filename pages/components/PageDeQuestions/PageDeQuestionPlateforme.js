@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from "next/head";
+import ResetQuizzButton from "../ResetQuizzButton";
 
 
 class PageDeQuestionPlateforme extends React.Component {
@@ -141,6 +142,8 @@ class PageDeQuestionPlateforme extends React.Component {
                     <div className="hidden content">Suivant</div>
                     <div className="visible content"><i aria-hidden="true" className="arrow right icon"></i></div>
                 </button>
+
+                <ResetQuizzButton/>
 
             </div>
 
