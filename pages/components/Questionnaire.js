@@ -15,9 +15,13 @@ class Questionnaire extends React.Component {
             plateforme:[],
             genre:[],
             theme:[],
-            etape:1,
+            mode:[],
+            perspective:[],
             valeurGenres: "loading",
-            valeurThemes: "loading"
+            valeurThemes: "loading",
+            valeurModes: "loading",
+            valeurPerspectives: "loading",
+            etape:1,
         }
 
     }
@@ -40,6 +44,20 @@ class Questionnaire extends React.Component {
         this.setState({
             genre: val,
         },()=> {console.log(this.state.genre); console.log("GENRE !")});
+        this.setEtape();
+    }
+
+    setMode(val){
+        this.setState({
+            mode: val,
+        });
+        this.setEtape();
+    }
+
+    setPerspective(val){
+        this.setState({
+            perspective: val,
+        });
         this.setEtape();
     }
 
@@ -100,6 +118,49 @@ class Questionnaire extends React.Component {
                 console.error(err);
             });
 
+        await axios({
+            url: ""+proxyCORS+"https://api-v3.igdb.com/game_modes",
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'user-key': userKey
+            },
+            data: "fields created_at,name,slug,updated_at,url;"
+        })
+            .then(response => {
+                console.log(response.data);
+                this.setState({
+                    valeurModes: response.data
+                },()=> this.setValeursMode(this.state.valeurModes))
+            })
+            .catch(err => {
+                this.setState({
+                    valeurModes: "err"
+                });
+                console.error(err);
+            });
+
+         await axios({
+            url: ""+proxyCORS+"https://api-v3.igdb.com/player_perspectives",
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'user-key': userKey
+            },
+            data: "fields created_at,name,slug,updated_at,url;"
+        })
+            .then(response => {
+                console.log(response.data);
+                this.setState({
+                    valeurPerspectives: response.data
+                },()=> this.setValeursPerspective(this.state.valeurPerspectives))
+            })
+            .catch(err => {
+                this.setState({
+                    valeurModes: "err"
+                });
+                console.error(err);
+            });
 
     }
 
@@ -143,12 +204,28 @@ class Questionnaire extends React.Component {
         });
     }
 
+    setValeursMode(val){
+        this.setState({
+            valeurModes: this.remplirTableaux(val)
+        });
+
+    }
+
+    setValeursPerspective(val){
+        this.setState({
+            valeurPerspectives: this.remplirTableaux(val)
+        });
+    }
+
 
 
     render() {
         const numEtape = this.state.etape;
         let questionnaire;
         let questionnaire2;
+        let questionnaire3;
+        let questionnaire4;
+
 
 
         switch (numEtape) {
@@ -163,6 +240,12 @@ class Questionnaire extends React.Component {
                 console.log(this.state.valeurThemes);
                 questionnaire2 = <PageDeQuestionGenre tabGenres={this.state.valeurThemes}  modifierTableauGenre={this.setTheme.bind(this)} value="Thème" />;
                 break;
+            case 4:
+                questionnaire3 = <PageDeQuestionGenre tabGenres={this.state.valeurModes}  modifierTableauGenre={this.setMode.bind(this)} value="Mode" />;
+                break;
+            case 5:
+                questionnaire4 = <PageDeQuestionGenre tabGenres={this.state.valeurPerspectives}  modifierTableauGenre={this.setPerspective.bind(this)} value="Perspective du joueur" />;
+                break;
 
         }
 
@@ -170,6 +253,8 @@ class Questionnaire extends React.Component {
             <div>
                 {questionnaire}
                 {questionnaire2}
+                {questionnaire3}
+                {questionnaire4}
 
 
             </div>
