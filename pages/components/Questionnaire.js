@@ -14,10 +14,19 @@ class Questionnaire extends React.Component {
         this.state={
             plateforme:[],
             genre:[],
+            theme:[],
             etape:1,
-            valeurGenres: "loading"
+            valeurGenres: "loading",
+            valeurThemes: "loading"
         }
 
+    }
+
+    setTheme(val){
+        this.setState({
+            theme: val,
+        },()=>{console.log(this.state.theme); console.log("THEME !!!")});
+        this.setEtape();
     }
 
     setPlateforme(val){
@@ -30,7 +39,7 @@ class Questionnaire extends React.Component {
     setGenre(val){
         this.setState({
             genre: val,
-        },()=>console.log(this.state.genre));
+        },()=> {console.log(this.state.genre); console.log("GENRE !")});
         this.setEtape();
     }
 
@@ -43,8 +52,8 @@ class Questionnaire extends React.Component {
 
 
     async componentDidMount() {
-
-        axios({
+        //on charge tous les genres de l'api
+        await axios({
             url: ""+proxyCORS+"https://api-v3.igdb.com/genres",
             method: 'POST',
             headers: {
@@ -57,7 +66,7 @@ class Questionnaire extends React.Component {
                 this.setState({
                     valeurGenres: response.data
 
-                },()=> this.remplirTableaux())
+                },()=> this.setValeursGenres(this.state.valeurGenres))
 
             })
             .catch(err => {
@@ -67,24 +76,48 @@ class Questionnaire extends React.Component {
                 console.error(err);
             });
 
+        //on charge tous les themes de l'api
+        await axios({
+            url: ""+proxyCORS+"https://api-v3.igdb.com/themes",
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'user-key': userKey
+            },
+            data: "fields created_at,name,slug,updated_at,url; limit 500;"
+        })
+            .then(response => {
+                this.setState({
+                    valeurThemes: response.data
+
+                },()=> this.setValeursTheme(this.state.valeurThemes))
+
+            })
+            .catch(err => {
+                this.setState({
+                    valeurThemes: "err"
+                });
+                console.error(err);
+            });
+
 
     }
 
-    remplirTableaux(){
+    remplirTableaux(tab){
 
 
         let listeGenresUpdated = [] ;
 
 
-        for(let i =0;i<this.state.valeurGenres.length;i++){
+        for(let i =0;i<tab.length;i++){
 
 
             listeGenresUpdated=[...listeGenresUpdated,{
-                id: this.state.valeurGenres[i].id,
-                created_at: this.state.valeurGenres[i].created_at,
-                name: this.state.valeurGenres[i].name,
-                slug: this.state.valeurGenres[i].slug,
-                url: this.state.valeurGenres[i].url,
+                id: tab[i].id,
+                created_at: tab[i].created_at,
+                name: tab[i].name,
+                slug: tab[i].slug,
+                url: tab[i].url,
                 style: "ui card",
                 texte: ""
 
@@ -92,11 +125,22 @@ class Questionnaire extends React.Component {
 
         }
 
+        return listeGenresUpdated;
+
+
+    }
+
+    setValeursGenres(val){
         this.setState({
-            valeurGenres: listeGenresUpdated
+            valeurGenres: this.remplirTableaux(val)
         });
 
+    }
 
+    setValeursTheme(val){
+        this.setState({
+            valeurThemes: this.remplirTableaux(val)
+        });
     }
 
 
@@ -104,16 +148,20 @@ class Questionnaire extends React.Component {
     render() {
         const numEtape = this.state.etape;
         let questionnaire;
+        let questionnaire2;
+
 
         switch (numEtape) {
             case 1:
                 questionnaire = <PageDeQuestionPlateforme modifierTableauPlateforme={this.setPlateforme.bind(this)} />;
                 break;
             case 2:
-                questionnaire = <PageDeQuestionGenre tabGenres={this.state.valeurGenres} modifierTableauGenre={this.setGenre.bind(this)}/>;
+                console.log(this.state.valeurGenres);
+                questionnaire = <PageDeQuestionGenre tabGenres={this.state.valeurGenres} modifierTableauGenre={this.setGenre.bind(this)} value="Genre" />;
                 break;
             case 3:
-                questionnaire = <h3>Thème</h3>;
+                console.log(this.state.valeurThemes);
+                questionnaire2 = <PageDeQuestionGenre tabGenres={this.state.valeurThemes}  modifierTableauGenre={this.setTheme.bind(this)} value="Thème" />;
                 break;
 
         }
@@ -121,6 +169,8 @@ class Questionnaire extends React.Component {
         return (
             <div>
                 {questionnaire}
+                {questionnaire2}
+
 
             </div>
         )

@@ -12,9 +12,11 @@ class PageDeQuestionGenre extends React.Component {
         this.state={
             listeGenres: this.props.tabGenres,
             chargementdonnee:true,
-            listeGenresSelectionnes: []
+            listeGenresSelectionnes: [],
+            titre: this.props.value
 
         }
+        console.log(props);
 
     }
 
@@ -67,6 +69,7 @@ class PageDeQuestionGenre extends React.Component {
 
     }
 
+
     render() {
 
         let txtDonnee;
@@ -95,10 +98,10 @@ class PageDeQuestionGenre extends React.Component {
 
         }
 
-
+        let title = this.state.titre;
 
         return ( <div>
-                <h1 className="ui header center aligned">Genre</h1>
+                <h1 className="ui header center aligned">{title}</h1>
 
                 {txtDonnee}
 
