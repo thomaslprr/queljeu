@@ -1,9 +1,13 @@
 import React from 'react'
 import Head from "next/head";
 import PageDeQuestionPlateforme from "./PageDeQuestions/PageDeQuestionPlateforme";
+import PageDeQuestionGenre from "./PageDeQuestions/PageDeQuestionGenre";
+import axios from "axios";
 
 
 class Questionnaire extends React.Component {
+
+
 
     constructor(props) {
         super(props);
@@ -32,7 +36,7 @@ class Questionnaire extends React.Component {
                 questionnaire = <PageDeQuestionPlateforme modifierTableauPlateforme={this.setPlateforme.bind(this)} />;
                 break;
             case 2:
-                questionnaire = <h3>Questionnaire numero 2</h3>;
+                questionnaire = <PageDeQuestionGenre />;
                 break;
 
         }
