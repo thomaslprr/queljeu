@@ -38,6 +38,8 @@ class findagame extends React.Component {
                 <title>QuelJeu</title>
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
+                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/antd/4.1.1/antd.min.css" />
+
 
             </Head>
             <main>

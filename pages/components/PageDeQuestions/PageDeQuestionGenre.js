@@ -16,8 +16,12 @@ class PageDeQuestionGenre extends React.Component {
             titre: this.props.value
 
         }
-        console.log(props);
+    }
 
+    remplirListeApi(val){
+        this.setState({
+            listeGenres: val
+        })
     }
 
     changerTableauGenre(){

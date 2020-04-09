@@ -3,8 +3,8 @@ import Head from "next/head";
 import PageDeQuestionPlateforme from "./PageDeQuestions/PageDeQuestionPlateforme";
 import PageDeQuestionGenre from "./PageDeQuestions/PageDeQuestionGenre";
 import axios from "axios";
-import PageDeQuestionSlider from "./PageDeQuestions/PageDeQuestionSlider";
 import PageResultat from "./PageDeResultat/PageResultat";
+import PageDeQuestionSlider from "./PageDeQuestions/PageDeQuestionSlider";
 
 
 class Questionnaire extends React.Component {
@@ -26,7 +26,15 @@ class Questionnaire extends React.Component {
             etape:1,
         }
 
+        this.PageDeQuestionEnfant1 = React.createRef();
+        this.PageDeQuestionEnfant2 = React.createRef();
+        this.PageDeQuestionEnfant3 = React.createRef();
+        this.PageDeQuestionEnfant4 = React.createRef();
+        this.PageDeQuestionEnfant5 = React.createRef();
+
+
     }
+
 
     setTheme(val){
         this.setState({
@@ -86,7 +94,14 @@ class Questionnaire extends React.Component {
                 this.setState({
                     valeurGenres: response.data
 
-                },()=> this.setValeursGenres(this.state.valeurGenres))
+                },()=> {
+                    if(this.PageDeQuestionEnfant1.current != null){
+                        this.PageDeQuestionEnfant1.current.remplirListeApi(this.remplirTableaux(this.state.valeurGenres))
+                    }else{
+                        this.setValeursGenres(this.state.valeurGenres);
+                    }
+
+                })
 
             })
             .catch(err => {
@@ -110,7 +125,13 @@ class Questionnaire extends React.Component {
                 this.setState({
                     valeurThemes: response.data
 
-                },()=> this.setValeursTheme(this.state.valeurThemes))
+                },()=>{
+                    if(this.PageDeQuestionEnfant2.current != null){
+                        this.PageDeQuestionEnfant2.current.remplirListeApi(this.remplirTableaux(this.state.valeurThemes))
+                    }else{
+                        this.setValeursTheme(this.state.valeurThemes);
+                    }
+                })
 
             })
             .catch(err => {
@@ -133,7 +154,13 @@ class Questionnaire extends React.Component {
                 console.log(response.data);
                 this.setState({
                     valeurModes: response.data
-                },()=> this.setValeursMode(this.state.valeurModes))
+                },()=>{
+                    if(this.PageDeQuestionEnfant3.current != null){
+                        this.PageDeQuestionEnfant3.current.remplirListeApi(this.remplirTableaux(this.state.valeurModes))
+                    }else{
+                        this.setValeursMode(this.state.valeurModes);
+                    }
+                })
             })
             .catch(err => {
                 this.setState({
@@ -155,7 +182,13 @@ class Questionnaire extends React.Component {
                 console.log(response.data);
                 this.setState({
                     valeurPerspectives: response.data
-                },()=> this.setValeursPerspective(this.state.valeurPerspectives))
+                },()=>{
+                    if(this.PageDeQuestionEnfant4.current != null){
+                        this.PageDeQuestionEnfant4.current.remplirListeApi(this.remplirTableaux(this.state.valeurPerspectives))
+                    }else{
+                        this.setValeursPerspective(this.state.valeurPerspectives);
+                    }
+                })
             })
             .catch(err => {
                 this.setState({
@@ -227,6 +260,7 @@ class Questionnaire extends React.Component {
         let questionnaire2;
         let questionnaire3;
         let questionnaire4;
+        let questionnaire5;
 
 
 
@@ -236,20 +270,21 @@ class Questionnaire extends React.Component {
                 break;
             case 2:
                 console.log(this.state.valeurGenres);
-                questionnaire = <PageDeQuestionGenre tabGenres={this.state.valeurGenres} modifierTableauGenre={this.setGenre.bind(this)} value="Genre" />;
+                questionnaire = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant1} tabGenres={this.state.valeurGenres} modifierTableauGenre={this.setGenre.bind(this)} value="Genre" />;
                 break;
             case 3:
                 console.log(this.state.valeurThemes);
-                questionnaire2 = <PageDeQuestionGenre tabGenres={this.state.valeurThemes}  modifierTableauGenre={this.setTheme.bind(this)} value="Thème" />;
+                questionnaire2 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant2} tabGenres={this.state.valeurThemes}  modifierTableauGenre={this.setTheme.bind(this)} value="Thème" />;
                 break;
             case 4:
-                questionnaire3 = <PageDeQuestionGenre tabGenres={this.state.valeurModes}  modifierTableauGenre={this.setMode.bind(this)} value="Mode" />;
+                questionnaire3 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant3} tabGenres={this.state.valeurModes}  modifierTableauGenre={this.setMode.bind(this)} value="Mode" />;
                 break;
             case 5:
-                questionnaire4 = <PageDeQuestionGenre tabGenres={this.state.valeurPerspectives}  modifierTableauGenre={this.setPerspective.bind(this)} value="Perspective du joueur" />;
+                questionnaire4 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant4} tabGenres={this.state.valeurPerspectives}  modifierTableauGenre={this.setPerspective.bind(this)} value="Perspective du joueur" />;
                 break;
             case 6:
-                questionnaire4 = <PageResultat/>
+                questionnaire5 = <PageDeQuestionSlider/>;
+
 
 
         }
@@ -260,6 +295,7 @@ class Questionnaire extends React.Component {
                 {questionnaire2}
                 {questionnaire3}
                 {questionnaire4}
+                {questionnaire5}
 
 
             </div>
