@@ -1,25 +1,21 @@
-
-import React from 'react'
+import React from 'react';
 
 
 class PageDeQuestionSlider extends React.Component {
 
+
+
     render() {
 
+
         return (
+            <div>
+                <h1>Slider</h1>
 
-          <div>
-            <h3> Yearonly </h3>
-        <div className="ui calendar" id="">
-            <div className="ui input left icon">
-                <i className="time icon"></i>
-                <input type="text" placeholder="Time"/>
             </div>
-        </div>
-            </div>
-
-        )
+        );
     }
+
 
 }
 

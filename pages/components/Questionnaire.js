@@ -4,6 +4,7 @@ import PageDeQuestionPlateforme from "./PageDeQuestions/PageDeQuestionPlateforme
 import PageDeQuestionGenre from "./PageDeQuestions/PageDeQuestionGenre";
 import axios from "axios";
 import PageDeQuestionSlider from "./PageDeQuestions/PageDeQuestionSlider";
+import PageResultat from "./PageDeResultat/PageResultat";
 
 
 class Questionnaire extends React.Component {
@@ -248,8 +249,8 @@ class Questionnaire extends React.Component {
                 questionnaire4 = <PageDeQuestionGenre tabGenres={this.state.valeurPerspectives}  modifierTableauGenre={this.setPerspective.bind(this)} value="Perspective du joueur" />;
                 break;
             case 6:
-                questionnaire4 = <PageDeQuestionSlider/>;
-                break;
+                questionnaire4 = <PageResultat/>
+
 
         }
 
