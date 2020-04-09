@@ -83,7 +83,7 @@ class PageDeQuestionGenre extends React.Component {
             txtDonnee = <h1>Chargement des données</h1>
         }else if(this.state.listeGenres =="err"){
             txtDonnee = <h1>Erreur lors du chargement des données</h1>
-        }else {
+        }else if(this.state.listeGenresSelectionnes!=null) {
 
            listeDesGenres = this.state.listeGenres.map(({ id, name,style,texte}) => (
 

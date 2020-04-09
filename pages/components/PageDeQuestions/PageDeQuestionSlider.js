@@ -1,5 +1,5 @@
 import React from 'react';
-import { Slider, Switch } from 'antd';
+import { Slider} from 'antd';
 import {Container, Label} from "semantic-ui-react";
 
 
