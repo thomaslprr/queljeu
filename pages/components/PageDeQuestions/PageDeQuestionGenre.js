@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ResetQuizzButton from "../ResetQuizzButton";
-
+import Loader from "../Loader";
 
 
 class PageDeQuestionGenre extends React.Component {
@@ -79,7 +79,7 @@ class PageDeQuestionGenre extends React.Component {
         let listeDesGenres;
 
         if(this.state.listeGenres  == "loading"){
-            txtDonnee = <h1>Chargement des données</h1>
+            txtDonnee = <Loader/>
         }else if(this.state.listeGenres =="err"){
             txtDonnee = <h1>Erreur lors du chargement des données</h1>
         }else {
