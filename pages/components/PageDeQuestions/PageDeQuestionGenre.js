@@ -78,28 +78,32 @@ class PageDeQuestionGenre extends React.Component {
         let txtDonnee;
         let listeDesGenres;
 
-        if(this.state.listeGenres  == "loading"){
-            txtDonnee = <Loader/>
-        }else if(this.state.listeGenres =="err"){
-            txtDonnee = <h1>Erreur lors du chargement des données</h1>
-        }else if(this.state.listeGenres){
+        if(this.state.listeGenres){
+            if(this.state.listeGenres  == "loading"){
+                txtDonnee = <Loader/>
+            }else if(this.state.listeGenres =="err"){
+                txtDonnee = <h1>Erreur lors du chargement des données</h1>
+            }else {
 
-           listeDesGenres = this.state.listeGenres.map(({ id, name,style,texte}) => (
-
-
-                   <a className={style} key={id} onClick={() => this.cliqueReponse(id)} >
-                       <div className="content">
-                           <div className="header">{name} {texte}</div>
-
-                       </div>
-                   </a>
+                listeDesGenres = this.state.listeGenres.map(({ id, name,style,texte}) => (
 
 
+                    <a className={style} key={id} onClick={() => this.cliqueReponse(id)} >
+                        <div className="content">
+                            <div className="header">{name} {texte}</div>
 
-           ))
+                        </div>
+                    </a>
 
 
+
+                ))
+
+
+            }
         }
+
+
 
 
 

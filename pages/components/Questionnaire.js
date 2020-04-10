@@ -6,6 +6,9 @@ import axios from "axios";
 import PageDeQuestionSlider from "./PageDeQuestions/PageDeQuestionSlider";
 
 
+const proxyCORS = "https://contre-cors.herokuapp.com/";
+const userKey = '634b219991f28ec8c656387de180af49';
+
 class Questionnaire extends React.Component {
 
 

@@ -29,31 +29,37 @@ class PageDeQuestionSlider extends React.Component {
 
     render() {
         let date;
-        if(this.state.date!=null){
+        if(this.state.date){
             date = this.state.date;
-        }else{
+        }else if(this.state.rangedepart){
             date = this.state.rangedepart
         }
 
         let affichagedate;
 
-        if(date[0]==date[1]){
-            affichagedate=<div className="ui huge circular labels "><Label className="ui blue basic label">
-                {date[0]}
-            </Label></div>
+        if(date!=null){
+            if(date[0]==date[1]){
+                affichagedate=<div className="ui huge circular labels "><Label className="ui blue basic label">
+                    {date[0]}
+                </Label></div>
 
-        }else{
+            }else{
                 affichagedate=<div className="ui huge circular labels ">
 
-                <Label className="ui blue basic label">
-                    {date[0]} - {date[1]}
-                </Label>
+                    <Label className="ui blue basic label">
+                        {date[0]} - {date[1]}
+                    </Label>
                 </div>
-         }
+            }
+        }
 
-        let titre = this.state.titre;
+
+        let titre;
+        if(this.state.titre){
+             titre = this.state.titre;
+        }
         let bouttonSuivant;
-        if(titre=="Note" && this.props.changerEtat!=null){
+        if(titre=="Note" && this.props.changerEtat && this.props.changerEtat){
             bouttonSuivant= <button className="ui massive button green" onClick={this.props.changerEtat.bind(this)}>Voir les résultats</button>
 
         }else{
@@ -64,16 +70,22 @@ class PageDeQuestionSlider extends React.Component {
 
         }
 
+        let slider;
+        if(this.state.rangedepart && this.state.min && this.state.max){
+            slider=<Slider range defaultValue={[this.state.rangedepart[0], this.state.rangedepart[1]]}
+                           min={this.state.min}
+                           max={this.state.max}
+                           tooltipVisible={false}
+                           onChange={(value)=> this.changementDate(value)}
+            />
+        }
+
         return (
             <div>
-                <h1 className="ui header center aligned">{this.state.titre}</h1>
+                <h1 className="ui header center aligned">{titre}</h1>
 
-                    <Slider range defaultValue={[this.state.rangedepart[0], this.state.rangedepart[1]]}
-                            min={this.state.min}
-                            max={this.state.max}
-                            tooltipVisible={false}
-                            onChange={(value)=> this.changementDate(value)}
-                    />
+                {slider}
+
                 <Container textAlign='center'>
 
                     {affichagedate}
