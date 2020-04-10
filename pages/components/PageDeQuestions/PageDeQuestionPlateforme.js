@@ -44,7 +44,7 @@ class PageDeQuestionPlateforme extends React.Component {
                 this.setState({
                     listePlateforme: liste,
                     style: styles
-                },()=>console.log(this.state.listePlateforme));
+                });
 
                 contientDeja=true;
             }
@@ -57,7 +57,7 @@ class PageDeQuestionPlateforme extends React.Component {
             this.setState({
                 listePlateforme:[...liste,val],
                 style: styles
-            },()=>console.log(this.state.listePlateforme)
+            }
         )
         }
 

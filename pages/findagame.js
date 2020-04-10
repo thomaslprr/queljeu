@@ -15,7 +15,7 @@ class findagame extends React.Component {
     startClick() {
         this.setState({
             questionnaireCommence: true
-        }, ()=>console.log(this.state.questionnaireCommence));
+        });
 
     }
 

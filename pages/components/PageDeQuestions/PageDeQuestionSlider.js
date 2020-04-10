@@ -59,8 +59,8 @@ class PageDeQuestionSlider extends React.Component {
              titre = this.state.titre;
         }
         let bouttonSuivant;
-        if(titre=="Note" && this.props.changerEtat && this.props.changerEtat){
-            bouttonSuivant= <button className="ui massive button green" onClick={this.props.changerEtat.bind(this)}>Voir les résultats</button>
+        if(titre=="Note" ){
+            bouttonSuivant= <button className="ui massive button green" onClick={this.changerTableau.bind(this)}>Voir les résultats</button>
 
         }else{
            bouttonSuivant = <button className="ui vertical animated button blue huge" onClick={this.changerTableau.bind(this)}>
@@ -71,10 +71,17 @@ class PageDeQuestionSlider extends React.Component {
         }
 
         let slider;
-        if(this.state.rangedepart && this.state.min && this.state.max){
-            slider=<Slider range defaultValue={[this.state.rangedepart[0], this.state.rangedepart[1]]}
-                           min={this.state.min}
-                           max={this.state.max}
+        let min,max,rang;
+        min=this.state.min;
+        max= this.state.max;
+        rang = this.state.rangedepart;
+
+
+
+        if(min!=null && max!=null && rang!=null){
+            slider=<Slider range defaultValue={[rang[0], rang[1]]}
+                           min={min}
+                           max={max}
                            tooltipVisible={false}
                            onChange={(value)=> this.changementDate(value)}
             />

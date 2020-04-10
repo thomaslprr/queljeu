@@ -43,7 +43,7 @@ class Questionnaire extends React.Component {
     setTheme(val){
         this.setState({
             theme: val,
-        },()=>{console.log(this.state.theme); console.log("THEME !!!")});
+        });
         this.setEtape();
     }
 
@@ -57,7 +57,7 @@ class Questionnaire extends React.Component {
     setGenre(val){
         this.setState({
             genre: val,
-        },()=> {console.log(this.state.genre); console.log("GENRE !")});
+        });
         this.setEtape();
     }
 
@@ -155,7 +155,6 @@ class Questionnaire extends React.Component {
             data: "fields created_at,name,slug,updated_at,url;"
         })
             .then(response => {
-                console.log(response.data);
                 this.setState({
                     valeurModes: response.data
                 },()=>{
@@ -183,7 +182,6 @@ class Questionnaire extends React.Component {
             data: "fields created_at,name,slug,updated_at,url;"
         })
             .then(response => {
-                console.log(response.data);
                 this.setState({
                     valeurPerspectives: response.data
                 },()=>{
@@ -289,11 +287,9 @@ class Questionnaire extends React.Component {
                 questionnaire = <PageDeQuestionPlateforme modifierTableauPlateforme={this.setPlateforme.bind(this)} />;
                 break;
             case 2:
-                console.log(this.state.valeurGenres);
                 questionnaire = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant1} tabGenres={this.state.valeurGenres} modifierTableauGenre={this.setGenre.bind(this)} value="Genre" />;
                 break;
             case 3:
-                console.log(this.state.valeurThemes);
                 questionnaire2 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant2} tabGenres={this.state.valeurThemes}  modifierTableauGenre={this.setTheme.bind(this)} value="Thème" />;
                 break;
             case 4:
@@ -306,7 +302,7 @@ class Questionnaire extends React.Component {
                 questionnaire5 = <PageDeQuestionSlider min={1972} max={2022} range={[2010,2020]} envoyerValeur={this.setAnnee.bind(this)} titre="Année"/>;
                 break;
             case 7:
-                questionnaire6 = <PageDeQuestionSlider min={0} max={100} range={[0,100]} envoyerValeur={this.setNote.bind(this)} titre="Note" changerEtat={this.setEtape.bind(this)}/>;
+                questionnaire6 = <PageDeQuestionSlider min={0} max={100} range={[0,100]} envoyerValeur={this.setNote.bind(this)} titre="Note"/>;
                 break;
 
 
