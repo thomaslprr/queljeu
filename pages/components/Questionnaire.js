@@ -3,7 +3,6 @@ import Head from "next/head";
 import PageDeQuestionPlateforme from "./PageDeQuestions/PageDeQuestionPlateforme";
 import PageDeQuestionGenre from "./PageDeQuestions/PageDeQuestionGenre";
 import axios from "axios";
-import PageResultat from "./PageDeResultat/PageResultat";
 import PageDeQuestionSlider from "./PageDeQuestions/PageDeQuestionSlider";
 
 
@@ -18,6 +17,8 @@ class Questionnaire extends React.Component {
             genre:[],
             theme:[],
             mode:[],
+            annee:[],
+            note:[],
             perspective:[],
             valeurGenres: "loading",
             valeurThemes: "loading",
@@ -252,6 +253,21 @@ class Questionnaire extends React.Component {
         });
     }
 
+    setAnnee(val){
+        this.setState({
+            annee:val
+        });
+        this.setEtape();
+    }
+
+    setNote(val){
+        this.setState({
+            note:val
+        });
+        this.setEtape();
+
+    }
+
 
 
     render() {
@@ -261,6 +277,7 @@ class Questionnaire extends React.Component {
         let questionnaire3;
         let questionnaire4;
         let questionnaire5;
+        let questionnaire6;
 
 
 
@@ -283,7 +300,12 @@ class Questionnaire extends React.Component {
                 questionnaire4 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant4} tabGenres={this.state.valeurPerspectives}  modifierTableauGenre={this.setPerspective.bind(this)} value="Perspective du joueur" />;
                 break;
             case 6:
-                questionnaire5 = <PageDeQuestionSlider/>;
+                questionnaire5 = <PageDeQuestionSlider min={1972} max={2022} range={[2010,2020]} envoyerValeur={this.setAnnee.bind(this)} titre="Année"/>;
+                break;
+            case 7:
+                questionnaire6 = <PageDeQuestionSlider min={0} max={100} range={[0,100]} envoyerValeur={this.setNote.bind(this)} titre="Note" changerEtat={this.setEtape.bind(this)}/>;
+                break;
+
 
 
 
@@ -296,6 +318,7 @@ class Questionnaire extends React.Component {
                 {questionnaire3}
                 {questionnaire4}
                 {questionnaire5}
+                {questionnaire6}
 
 
             </div>

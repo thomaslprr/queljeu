@@ -1,6 +1,5 @@
 import React from 'react'
-import Head from "next/head";
-import axios from "axios";
+
 import ResetQuizzButton from "../ResetQuizzButton";
 
 
@@ -108,15 +107,12 @@ class PageDeQuestionGenre extends React.Component {
 
         let bouttonSuivant;
 
-        if(title=="Perspective du joueur"){
-            bouttonSuivant= <button className="ui massive button green" onClick={this.changerTableauGenre.bind(this)}>Voir les résultats</button>
 
-        }else{
-            bouttonSuivant=<button className="ui vertical animated button blue huge" onClick={this.changerTableauGenre.bind(this)}>
+        bouttonSuivant=<button className="ui vertical animated button blue huge" onClick={this.changerTableauGenre.bind(this)}>
                 <div className="hidden content">Suivant</div>
                 <div className="visible content"><i aria-hidden="true" className="arrow right icon"></i></div>
-            </button>
-        }
+            </button>;
+
 
         return ( <div>
                 <h1 className="ui header center aligned">{title}</h1>

@@ -8,9 +8,10 @@ class PageDeQuestionSlider extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            min:1990,
-            max:2020,
-            rangedepart:[2010,2020]
+            titre: this.props.titre,
+            min:this.props.min,
+            max:this.props.max,
+            rangedepart:this.props.range
         }
 
     }
@@ -19,6 +20,10 @@ class PageDeQuestionSlider extends React.Component {
         this.setState({
             date:val
         })
+    }
+
+    changerTableau(){
+        this.props.envoyerValeur([this.state.min,this.state.max]);
     }
 
 
@@ -41,16 +46,27 @@ class PageDeQuestionSlider extends React.Component {
                 affichagedate=<div className="ui huge circular labels ">
 
                 <Label className="ui blue basic label">
-                    {date[0]}
+                    {date[0]} - {date[1]}
                 </Label>
-                    <Label className="ui blue basic label">
-                        {date[1]}
-                    </Label></div>
+                </div>
          }
+
+        let titre = this.state.titre;
+        let bouttonSuivant;
+        if(titre=="Note" && this.props.changerEtat!=null){
+            bouttonSuivant= <button className="ui massive button green" onClick={this.props.changerEtat.bind(this)}>Voir les résultats</button>
+
+        }else{
+           bouttonSuivant = <button className="ui vertical animated button blue huge" onClick={this.changerTableau.bind(this)}>
+                <div className="hidden content">Suivant</div>
+                <div className="visible content"><i aria-hidden="true" className="arrow right icon"></i></div>
+            </button>
+
+        }
 
         return (
             <div>
-                <h1 className="ui header center aligned">Année</h1>
+                <h1 className="ui header center aligned">{this.state.titre}</h1>
 
                     <Slider range defaultValue={[this.state.rangedepart[0], this.state.rangedepart[1]]}
                             min={this.state.min}
@@ -61,6 +77,8 @@ class PageDeQuestionSlider extends React.Component {
                 <Container textAlign='center'>
 
                     {affichagedate}
+                    {bouttonSuivant}
+
 
                  </Container>
 
