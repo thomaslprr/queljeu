@@ -307,7 +307,7 @@ class Questionnaire extends React.Component {
         let ann = "release_dates.y = "+annee;
         val=[...val,ann];
 
-        let request = "fields * ;";
+        let request = "fields *, cover.image_id ;";
         if(val.length>0){
             request+=" w ";
             for(let i=0; i < val.length ;i++){
