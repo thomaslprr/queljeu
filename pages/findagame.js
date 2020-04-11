@@ -8,7 +8,8 @@ class findagame extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            questionnaireCommence: false
+            questionnaireCommence: false,
+            soustitre:"Répond à 10 questions et trouve les meilleurs jeux fait pour toi !"
         };
     }
 
@@ -17,6 +18,12 @@ class findagame extends React.Component {
             questionnaireCommence: true
         });
 
+    }
+
+    setSousTitre(val){
+        this.setState({
+            soustitre: val
+        })
     }
 
 
@@ -29,7 +36,7 @@ class findagame extends React.Component {
                         <div className="hidden content"><i aria-hidden="true" className="arrow right icon"></i></div>
                     </button>;
         } else {
-            button = <Questionnaire />;
+            button = <Questionnaire setSousTitre={this.setSousTitre.bind(this)}/>;
         }
 
         return (<div className="container">
@@ -46,7 +53,7 @@ class findagame extends React.Component {
 
                 <h1 className="title">
                 Trouve ton  <a>jeu vidéo</a>
-            </h1><p className="description">Répond à 10 questions et trouve les meilleurs jeux fait pour toi !</p>
+            </h1><p className="description">{this.state.soustitre}</p>
 
                 {button}
 

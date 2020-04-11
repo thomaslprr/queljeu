@@ -4,10 +4,23 @@ import PageDeQuestionPlateforme from "./PageDeQuestions/PageDeQuestionPlateforme
 import PageDeQuestionGenre from "./PageDeQuestions/PageDeQuestionGenre";
 import axios from "axios";
 import PageDeQuestionSlider from "./PageDeQuestions/PageDeQuestionSlider";
+import PageResultat from "./PageDeResultat/PageResultat";
 
 
 const proxyCORS = "https://contre-cors.herokuapp.com/";
 const userKey = '634b219991f28ec8c656387de180af49';
+
+const sousTitrePlateforme = "Sélectionne les plateformes sur lesquels tu veux jouer";
+const sousTitreGenre = "Sélectionne tes genres préférés";
+const sousTitreTheme = "Sélectionne tes thèmes préférés";
+const sousTitreMode = "Sélectionne tes modes de jeu préférés";
+const sousTitrePerspective = "Sélectionne tes types de perspectives préférés";
+const sousTitreNote = "Quelle note veux-tu que le jeu est ?";
+const sousTitreAnnee = "Entre quelles dates veux-tu que le jeu soit sorti ?";
+const sousTitreResultat = "Voici la sélection des jeux fait pour toi";
+
+
+
 
 class Questionnaire extends React.Component {
 
@@ -30,6 +43,8 @@ class Questionnaire extends React.Component {
             etape:1,
         }
 
+        this.setSousTitre(this.state.etape);
+
         this.PageDeQuestionEnfant1 = React.createRef();
         this.PageDeQuestionEnfant2 = React.createRef();
         this.PageDeQuestionEnfant3 = React.createRef();
@@ -38,6 +53,7 @@ class Questionnaire extends React.Component {
 
 
     }
+
 
 
     setTheme(val){
@@ -78,7 +94,53 @@ class Questionnaire extends React.Component {
     setEtape(){
         this.setState({
             etape: this.state.etape + 1
+        },()=>{
+            this.setSousTitre(this.state.etape);
         })
+    }
+
+    setSousTitre(val){
+        if(this.props.setSousTitre){
+
+            switch(val){
+
+            //plateforme
+            case 1:
+                this.props.setSousTitre(sousTitrePlateforme);
+                break;
+
+            //genre
+            case 2:
+                this.props.setSousTitre(sousTitreGenre);
+                break;
+            //theme
+            case 3:
+                this.props.setSousTitre(sousTitreTheme);
+                break;
+
+             //mode
+            case 4:
+                this.props.setSousTitre(sousTitreMode);
+                break;
+
+            //perspective
+            case 5:
+                this.props.setSousTitre(sousTitrePerspective);
+                break;
+            //annee
+            case 6:
+                this.props.setSousTitre(sousTitreAnnee);
+                break;
+            //note
+            case 7:
+                this.props.setSousTitre(sousTitreNote);
+                break;
+            //resultat
+            case 8:
+                this.props.setSousTitre(sousTitreResultat);
+                break;
+        }
+        }
     }
 
 
@@ -273,6 +335,7 @@ class Questionnaire extends React.Component {
 
     render() {
         const numEtape = this.state.etape;
+
         let questionnaire;
         let questionnaire2;
         let questionnaire3;
@@ -303,6 +366,9 @@ class Questionnaire extends React.Component {
                 break;
             case 7:
                 questionnaire6 = <PageDeQuestionSlider min={0} max={100} range={[0,100]} envoyerValeur={this.setNote.bind(this)} titre="Note"/>;
+                break;
+            case 8:
+                questionnaire6 = <PageResultat />
                 break;
 
 
