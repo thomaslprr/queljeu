@@ -23,7 +23,11 @@ class PageDeQuestionSlider extends React.Component {
     }
 
     changerTableau(){
-        this.props.envoyerValeur([this.state.min,this.state.max]);
+        if(this.state.date){
+            this.props.envoyerValeur(this.state.date);
+        }else{
+            this.props.envoyerValeur([this.state.min,this.state.max]);
+        }
     }
 
 

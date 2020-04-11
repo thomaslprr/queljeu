@@ -41,6 +41,7 @@ class Questionnaire extends React.Component {
             valeurModes: "loading",
             valeurPerspectives: "loading",
             etape:1,
+            resultat:"loading"
         }
 
         this.setSousTitre(this.state.etape);
@@ -50,6 +51,8 @@ class Questionnaire extends React.Component {
         this.PageDeQuestionEnfant3 = React.createRef();
         this.PageDeQuestionEnfant4 = React.createRef();
         this.PageDeQuestionEnfant5 = React.createRef();
+
+        this.PageDeResultat = React.createRef();
 
 
     }
@@ -264,7 +267,7 @@ class Questionnaire extends React.Component {
 
     }
 
-    genererationRequete(plateforme,genre,theme,mode,perspective){
+    genererationRequete(plateforme,genre,theme,mode,perspective,annee,note){
         let val= [];
 
         let plat = "";
@@ -298,6 +301,12 @@ class Questionnaire extends React.Component {
             val=[...val,pers];
         }
 
+        let not="(total_rating >=  "+note[0]+" & total_rating <= "+note[1]+")";
+        val=[...val,not];
+
+        let ann = "release_dates.y = "+annee;
+        val=[...val,ann];
+
         let request = "fields * ;";
         if(val.length>0){
             request+=" w ";
@@ -318,7 +327,20 @@ class Questionnaire extends React.Component {
 
     }
 
-    executerRequete(){
+    miseEnFormeAnnee(tableauAnnee){
+        let listeannee="(";
+        for(let i = tableauAnnee[0] ; i <= tableauAnnee[1] ;i++){
+            if(i!=tableauAnnee[1]){
+                listeannee+=i+",";
+            }else{
+                listeannee+=i;
+            }
+        }
+        listeannee+=")";
+        return listeannee;
+    }
+
+    async executerRequete(){
         const modeJeuFilter = this.miseEnFormeTableauDeReponse(this.state.mode);
         const genreJeuFilter = this.miseEnFormeTableauDeReponse(this.state.genre);
         const themeJeuFilter = this.miseEnFormeTableauDeReponse(this.state.theme);
@@ -328,9 +350,10 @@ class Questionnaire extends React.Component {
         const perspectiveJeuFilter = this.miseEnFormeTableauDeReponse(this.state.perspective);
 
         const noteJeuFilter = this.state.note;
-        console.log(noteJeuFilter);
 
-        const requete =this.genererationRequete(plateformeJeuFilter,genreJeuFilter,themeJeuFilter,modeJeuFilter,perspectiveJeuFilter);
+        const anneeJeuFilter = this.miseEnFormeAnnee(this.state.annee);
+
+        const requete =this.genererationRequete(plateformeJeuFilter,genreJeuFilter,themeJeuFilter,modeJeuFilter,perspectiveJeuFilter,anneeJeuFilter,noteJeuFilter);
 
 
          axios({
@@ -343,7 +366,17 @@ class Questionnaire extends React.Component {
             data: requete
         })
             .then(response => {
-                console.log(response.data);
+                let result = response.data;
+                console.log(result);
+
+                if(this.PageDeResultat!=null){
+                    this.PageDeResultat.current.setResultat(result);
+                }else{
+                    this.setState({
+                        resultat: result
+                    })
+                }
+
             })
             .catch(err => {
                 this.setState({
@@ -450,6 +483,8 @@ class Questionnaire extends React.Component {
         let questionnaire5;
         let questionnaire6;
 
+        let resultatQuestion = this.state.resultat;
+
 
 
         switch (numEtape) {
@@ -475,9 +510,8 @@ class Questionnaire extends React.Component {
                 questionnaire6 = <PageDeQuestionSlider min={0} max={100} range={[0,100]} envoyerValeur={this.setNote.bind(this)} titre="Note"/>;
                 break;
             case 8:
-                questionnaire6 = <PageResultat />
+                questionnaire6 = <PageResultat ref={this.PageDeResultat} resultat={resultatQuestion}/>
                 break;
-
 
 
 
