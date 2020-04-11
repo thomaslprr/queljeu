@@ -73,7 +73,7 @@ class PageDeQuestionPlateforme extends React.Component {
 
             <div className="ui centered cards">
 
-                <a className={this.state.style[0]} onClick={()=> this.cliqueReponse("mac",0)} >
+                <a className={this.state.style[0]} onClick={()=> this.cliqueReponse("14",0)} >
                     <div className="content">
                         <div className="header">Mac {this.state.texte[0]}</div>
 
@@ -81,61 +81,56 @@ class PageDeQuestionPlateforme extends React.Component {
                 </a>
 
 
-                <a className={this.state.style[1]} onClick={()=> this.cliqueReponse("linux",1)}>
+                <a className={this.state.style[1]} onClick={()=> this.cliqueReponse("3",1)}>
                     <div className="content">
                         <div className="header">Linux {this.state.texte[1]}</div>
 
                     </div>
                 </a>
 
-                <a className={this.state.style[2]} onClick={()=> this.cliqueReponse("pc",2)}>
+                <a className={this.state.style[2]} onClick={()=> this.cliqueReponse("6",2)}>
                     <div className="content">
                         <div className="header">PC {this.state.texte[2]}</div>
 
                     </div>
                 </a>
 
-                <a className={this.state.style[3]} onClick={()=> this.cliqueReponse("nintendoswitch",3)}>
+                <a className={this.state.style[3]} onClick={()=> this.cliqueReponse("130",3)}>
                     <div className="content">
                         <div className="header">Nintendo Switch {this.state.texte[3]}</div>
 
                     </div>
                 </a>
 
-                <a className={this.state.style[4]} onClick={()=> this.cliqueReponse("ps4",4)}>
+                <a className={this.state.style[4]} onClick={()=> this.cliqueReponse("48",4)}>
                     <div className="content">
                         <div className="header">PlayStation 4 {this.state.texte[4]}</div>
 
                     </div>
                 </a>
 
-                <a className={this.state.style[5]} onClick={()=> this.cliqueReponse("xboxone",5)}>
+                <a className={this.state.style[5]} onClick={()=> this.cliqueReponse("49",5)}>
                     <div className="content">
                         <div className="header">Xbox One {this.state.texte[5]}</div>
 
                     </div>
                 </a>
 
-                <a className={this.state.style[6]} onClick={()=> this.cliqueReponse("xbox360",6)}>
+                <a className={this.state.style[6]} onClick={()=> this.cliqueReponse("12",6)}>
                     <div className="content">
                         <div className="header">Xbox 360 {this.state.texte[6]}</div>
 
                     </div>
                 </a>
 
-                <a className={this.state.style[7]} onClick={()=> this.cliqueReponse("ps3",7)}>
+                <a className={this.state.style[7]} onClick={()=> this.cliqueReponse("9",7)}>
                     <div className="content">
                         <div className="header">PlayStation 3 {this.state.texte[7]}</div>
 
                     </div>
                 </a>
 
-                <a className={this.state.style[8]} onClick={()=> this.cliqueReponse("autre",8)}>
-                    <div className="content">
-                        <div className="header">Autre {this.state.texte[8]}</div>
 
-                    </div>
-                </a>
             </div>
 
                 <button className="ui vertical animated button blue huge" onClick={this.changerTableauPlateforme.bind(this)}>

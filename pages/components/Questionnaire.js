@@ -138,6 +138,7 @@ class Questionnaire extends React.Component {
             //resultat
             case 8:
                 this.props.setSousTitre(sousTitreResultat);
+                this.executerRequete();
                 break;
         }
         }
@@ -261,6 +262,112 @@ class Questionnaire extends React.Component {
                 console.error(err);
             });
 
+    }
+
+    genererationRequete(plateforme,genre,theme,mode,perspective){
+        let val= [];
+
+        let plat = "";
+        if(plateforme!="()"){
+            plat+="platforms = "+plateforme+" ";
+            val=[...val,plat];
+        }
+
+        let gen = "";
+        if(genre!="()"){
+            gen+="genres = "+genre+" ";
+            val=[...val,gen];
+
+        }
+
+        let the = "";
+        if(theme!="()"){
+            the+="themes = "+theme+" ";
+            val=[...val,the];
+        }
+
+        let mod = "";
+        if(mode!="()"){
+            mod+="game_modes = "+mode+" ";
+            val=[...val,mod];
+        }
+
+        let pers = "";
+        if(perspective!="()"){
+            pers+="player_perspectives = "+perspective+" ";
+            val=[...val,pers];
+        }
+
+        let request = "fields * ;";
+        if(val.length>0){
+            request+=" w ";
+            for(let i=0; i < val.length ;i++){
+                if(i+1!=val.length){
+                    request+=val[i]+" & ";
+                }else{
+                    request+=val[i];
+                }
+            }
+            request+=";";
+        }
+        request+=" limit 500;";
+
+        console.log(request);
+        return request;
+
+
+    }
+
+    executerRequete(){
+        const modeJeuFilter = this.miseEnFormeTableauDeReponse(this.state.mode);
+        const genreJeuFilter = this.miseEnFormeTableauDeReponse(this.state.genre);
+        const themeJeuFilter = this.miseEnFormeTableauDeReponse(this.state.theme);
+
+        const plateformeJeuFilter = this.miseEnFormeTableauDeReponse(this.state.plateforme);
+
+        const perspectiveJeuFilter = this.miseEnFormeTableauDeReponse(this.state.perspective);
+
+        const noteJeuFilter = this.state.note;
+        console.log(noteJeuFilter);
+
+        const requete =this.genererationRequete(plateformeJeuFilter,genreJeuFilter,themeJeuFilter,modeJeuFilter,perspectiveJeuFilter);
+
+
+         axios({
+            url: ""+proxyCORS+"https://api-v3.igdb.com/games",
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'user-key': userKey
+            },
+            data: requete
+        })
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(err => {
+                this.setState({
+                    valeurModes: "err"
+                });
+                console.error(err);
+            });
+
+
+
+
+    }
+
+    miseEnFormeTableauDeReponse(val){
+        let result="(";
+        for(let i =0; i<val.length;i++){
+            result+=val[i];
+            if(i+1!=val.length){
+                result+=",";
+            }
+
+        }
+        result+=")";
+        return result;
     }
 
     remplirTableaux(tab){
