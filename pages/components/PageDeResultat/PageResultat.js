@@ -1,15 +1,13 @@
 import React from 'react'
 import CarteDeResultat from "./CarteDeResultat";
+import {Container, Pagination} from "semantic-ui-react";
 class PageResultat extends React.Component {
 
     constructor(props) {
         super(props);
         this.state={
             resultat: this.props.resultat,
-            defaultActivePage:1,
-            firstItem: 1,
-            lastItem:10,
-            totalPages:10,
+            defaultActivePage:0,
             resultPerPage: 10
         };
     }
@@ -19,33 +17,44 @@ class PageResultat extends React.Component {
         this.setState({
             resultat:val
         })
+
+    }
+
+    changementPage(){
+        this.setState({
+            defaultActivePage: this.state.defaultActivePage+1
+        }, ()=>{
+            console.log(this.state.defaultActivePage );
+            this.render();
+        })
     }
 
     render() {
 
-        const resultat = this.state.resultat;
+        let resultat = this.state.resultat;
 
 
         let affichageRes;
+
+        let indexDepart = this.state.defaultActivePage*this.state.resultPerPage;
+
+        let resultPerPage = this.state.resultPerPage;
+
         if(resultat=="loading"){
             affichageRes = <h3>Chargement des données</h3>
         }else{
 
-            const resultatPage = resultat.splice(this.state.defaultActivePage,this.state.resultPerPage);
+            let resultatPage = resultat.splice(indexDepart,resultPerPage);
 
 
-            affichageRes = resultatPage.map(({ id, name, total_rating,release_dates,cover }) => (
+            affichageRes = resultatPage.map(({ id, name, total_rating,cover,first_release_date }) => (
 
 
                 <CarteDeResultat
                     titre={name}
                     note={total_rating}
-                    date={release_dates}
-                    idimage={cover.image_id}
-
-
-
-
+                    date={first_release_date}
+                    cover={cover}
 
                 />
 
@@ -57,12 +66,15 @@ class PageResultat extends React.Component {
 
         return(
             <div>
+                <Container textAlign='center'>
+
                 <h1>Résultats </h1>
-                <div className="ui cards">
-
-
+                <div className="ui centered cards">
                 {affichageRes}
                 </div>
+
+                    <button className="ui button blue" onClick={this.changementPage.bind(this)}>Suivant</button>
+                </Container>
 
             </div>
         )
