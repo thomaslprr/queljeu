@@ -1,5 +1,6 @@
 import React from 'react';
 import {Rating} from "semantic-ui-react";
+import Link from "next/link";
 
 const monthNamesEn = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -20,6 +21,7 @@ class CarteDeResultat extends React.Component{
             console:this.props.console,
             cover: this.props.cover,
             datesortie: this.props.date,
+            slug: this.props.slug
 
         }
     }
@@ -46,6 +48,7 @@ class CarteDeResultat extends React.Component{
 
 
         return (
+            <Link href="/game/[slug]" as={`/game/${this.state.slug}`}>
             <a className="ui card" >
                     <div className="image">
                         <img src={image} height="290" width="360"/>
@@ -62,6 +65,7 @@ class CarteDeResultat extends React.Component{
                         <Rating icon='star' rating={this.state.note / 20} maxRating={5} disabled/>
                     </div>
             </a>
+            </Link>
 
 
     );

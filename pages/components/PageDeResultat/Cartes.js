@@ -9,13 +9,14 @@ const Cartes = ({ cartes, loading }) => {
     if(cartes){
         return (
             <div className="ui centered cards">
-                {cartes.map(({ id, name, total_rating,cover,first_release_date }) => (
+                {cartes.map(({ id, name, total_rating,cover,first_release_date,slug }) => (
                     <CarteDeResultat
                         key={id}
                         titre={name}
                         note={total_rating}
                         date={first_release_date}
                         cover={cover}
+                        slug={slug}
 
                     />
                 ))}
