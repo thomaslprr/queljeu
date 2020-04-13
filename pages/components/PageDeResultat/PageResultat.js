@@ -42,8 +42,9 @@ const PageResultat = ({req}) => {
     // Change page
     const paginate = pageNumber => {
         setCurrentPage(pageNumber);
-        console.log("appuie sur la page : "+pageNumber);
-        console.log(currentPosts);
+
+        //remonter en haut de page après chaque changement de page (transition progressive)
+        window.scroll({top: 0, left: 0, behavior: 'smooth' });
     }
 
     return (
