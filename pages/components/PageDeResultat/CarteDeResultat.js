@@ -6,7 +6,7 @@ const monthNamesEn = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
 
-const monthNamesFr = ["Janvier", "Février", "Mars", "Avril", "Mail", "Juin",
+const monthNamesFr = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
     "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
 ];
 
