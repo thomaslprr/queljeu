@@ -25,7 +25,7 @@ const PageResultat = ({req}) => {
                     'Accept': 'application/json',
                     'user-key': userKey
                 },
-                data: requete+"limit 500;"
+                data: requete+"limit 10;"
             });
             setPosts(res.data);
             console.log(res.data);
@@ -54,15 +54,7 @@ const PageResultat = ({req}) => {
 
             <Cartes cartes={currentPosts} loading={loading} />
 
-            <Pagination
-                defaultActivePage={currentPage}
-                firstItem={null}
-                lastItem={null}
-                pointing
-                secondary
-                totalPages={Math.ceil(posts.length / postsPerPage)}
-                onPageChange={(event,data)=>paginate(data.activePage)}
-            />
+
 
         </Container>
     );
