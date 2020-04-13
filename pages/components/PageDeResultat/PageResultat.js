@@ -28,6 +28,7 @@ const PageResultat = ({req}) => {
                 data: requete+"limit 500;"
             });
             setPosts(res.data);
+            console.log(res.data);
             setLoading(false);
         };
 
@@ -43,6 +44,7 @@ const PageResultat = ({req}) => {
     const paginate = pageNumber => {
         setCurrentPage(pageNumber);
         console.log("appuie sur la page : "+pageNumber);
+        console.log(currentPosts);
     }
 
     return (
