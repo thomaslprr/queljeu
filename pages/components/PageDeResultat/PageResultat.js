@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {Container} from "semantic-ui-react";
+import {Container, Pagination} from "semantic-ui-react";
 import axios from "axios";
 import Cartes from "./Cartes";
-import {Pagination} from "semantic-ui-react";
 
 
 const proxyCORS = "https://contre-cors.herokuapp.com/";
@@ -25,7 +24,7 @@ const PageResultat = ({req}) => {
                     'Accept': 'application/json',
                     'user-key': userKey
                 },
-                data: requete+"limit 10;"
+                data: requete+"limit 500;"
             });
             setPosts(res.data);
             console.log(res.data);
@@ -54,7 +53,15 @@ const PageResultat = ({req}) => {
 
             <Cartes cartes={currentPosts} loading={loading} />
 
-
+            <Pagination
+                defaultActivePage={currentPage}
+                firstItem={null}
+                lastItem={null}
+                pointing
+                secondary
+                totalPages={Math.ceil(posts.length / postsPerPage)}
+                onPageChange={(event,data)=>paginate(data.activePage)}
+            />
 
         </Container>
     );

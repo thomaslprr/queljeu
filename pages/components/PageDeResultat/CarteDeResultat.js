@@ -20,7 +20,6 @@ class CarteDeResultat extends React.Component{
             console:this.props.console,
             cover: this.props.cover,
             datesortie: this.props.date,
-            cle: this.props.cle
 
         }
     }
@@ -47,7 +46,7 @@ class CarteDeResultat extends React.Component{
 
 
         return (
-            <a  key={this.state.cle} className="ui card" >
+            <a className="ui card" >
                     <div className="image">
                         <img src={image} height="290" width="360"/>
                     </div>
