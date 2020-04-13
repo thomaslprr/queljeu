@@ -40,8 +40,7 @@ class Questionnaire extends React.Component {
             valeurThemes: "loading",
             valeurModes: "loading",
             valeurPerspectives: "loading",
-            etape:1,
-            resultat:"loading"
+            etape:1
         }
 
         this.setSousTitre(this.state.etape);
@@ -51,8 +50,6 @@ class Questionnaire extends React.Component {
         this.PageDeQuestionEnfant3 = React.createRef();
         this.PageDeQuestionEnfant4 = React.createRef();
         this.PageDeQuestionEnfant5 = React.createRef();
-
-        this.PageDeResultat = React.createRef();
 
 
     }
@@ -319,9 +316,7 @@ class Questionnaire extends React.Component {
             }
             request+=";";
         }
-        request+=" limit 500;";
 
-        console.log(request);
         return request;
 
 
@@ -340,7 +335,7 @@ class Questionnaire extends React.Component {
         return listeannee;
     }
 
-    async executerRequete(){
+    executerRequete(){
         const modeJeuFilter = this.miseEnFormeTableauDeReponse(this.state.mode);
         const genreJeuFilter = this.miseEnFormeTableauDeReponse(this.state.genre);
         const themeJeuFilter = this.miseEnFormeTableauDeReponse(this.state.theme);
@@ -353,41 +348,11 @@ class Questionnaire extends React.Component {
 
         const anneeJeuFilter = this.miseEnFormeAnnee(this.state.annee);
 
-        const requete =this.genererationRequete(plateformeJeuFilter,genreJeuFilter,themeJeuFilter,modeJeuFilter,perspectiveJeuFilter,anneeJeuFilter,noteJeuFilter);
+        let requete =this.genererationRequete(plateformeJeuFilter,genreJeuFilter,themeJeuFilter,modeJeuFilter,perspectiveJeuFilter,anneeJeuFilter,noteJeuFilter);
 
-
-         axios({
-            url: ""+proxyCORS+"https://api-v3.igdb.com/games",
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'user-key': userKey
-            },
-            data: requete
+        this.setState({
+            requete: requete
         })
-            .then(response => {
-                let result = response.data;
-                console.log(result);
-
-                if(this.PageDeResultat!=null){
-                    this.PageDeResultat.current.setResultat(result);
-                }else{
-                    this.setState({
-                        resultat: result
-                    })
-                }
-
-            })
-            .catch(err => {
-                this.setState({
-                    valeurModes: "err"
-                });
-                console.error(err);
-            });
-
-
-
-
     }
 
     miseEnFormeTableauDeReponse(val){
@@ -483,7 +448,6 @@ class Questionnaire extends React.Component {
         let questionnaire5;
         let questionnaire6;
 
-        let resultatQuestion = this.state.resultat;
 
 
 
@@ -510,7 +474,9 @@ class Questionnaire extends React.Component {
                 questionnaire6 = <PageDeQuestionSlider min={0} max={100} range={[0,100]} envoyerValeur={this.setNote.bind(this)} titre="Note"/>;
                 break;
             case 8:
-                questionnaire6 = <PageResultat ref={this.PageDeResultat} resultat={resultatQuestion}/>
+                if(this.state.requete){
+                    questionnaire6 = <PageResultat  req={this.state.requete}/>
+                }
                 break;
 
 

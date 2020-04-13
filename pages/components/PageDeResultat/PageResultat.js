@@ -1,84 +1,72 @@
-import React from 'react'
-import CarteDeResultat from "./CarteDeResultat";
-import {Container, Pagination} from "semantic-ui-react";
-class PageResultat extends React.Component {
+import React, { useState, useEffect } from 'react';
+import {Container} from "semantic-ui-react";
+import axios from "axios";
+import Cartes from "./Cartes";
+import {Pagination} from "semantic-ui-react";
 
-    constructor(props) {
-        super(props);
-        this.state={
-            resultat: this.props.resultat,
-            defaultActivePage:0,
-            resultPerPage: 10
+
+const proxyCORS = "https://contre-cors.herokuapp.com/";
+const userKey = '634b219991f28ec8c656387de180af49';
+
+const PageResultat = ({req}) => {
+    const [requete] = useState(req);
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            setLoading(true);
+            const res = await axios({
+                url: ""+proxyCORS+"https://api-v3.igdb.com/games",
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'user-key': userKey
+                },
+                data: requete+"limit 500;"
+            });
+            setPosts(res.data);
+            setLoading(false);
         };
+
+        fetchPosts();
+    }, []);
+
+    // Get current posts
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => {
+        setCurrentPage(pageNumber);
+        console.log("appuie sur la page : "+pageNumber);
     }
 
+    return (
+        <Container textAlign='center'>
 
-    setResultat(val){
-        this.setState({
-            resultat:val
-        })
+            <h1>Résultats </h1>
 
-    }
+            <Cartes cartes={currentPosts} loading={loading} />
 
-    changementPage(){
-        this.setState({
-            defaultActivePage: this.state.defaultActivePage+1
-        }, ()=>{
-            console.log(this.state.defaultActivePage );
-            this.render();
-        })
-    }
+            <Pagination
+                defaultActivePage={currentPage}
+                firstItem={null}
+                lastItem={null}
+                pointing
+                secondary
+                totalPages={Math.ceil(posts.length / postsPerPage)}
+                onPageChange={(event,data)=>paginate(data.activePage)}
+            />
 
-    render() {
-
-        let resultat = this.state.resultat;
-
-
-        let affichageRes;
-
-        let indexDepart = this.state.defaultActivePage*this.state.resultPerPage;
-
-        let resultPerPage = this.state.resultPerPage;
-
-        if(resultat=="loading"){
-            affichageRes = <h3>Chargement des données</h3>
-        }else{
-
-            let resultatPage = resultat.splice(indexDepart,resultPerPage);
-
-
-            affichageRes = resultatPage.map(({ id, name, total_rating,cover,first_release_date }) => (
-
-
-                <CarteDeResultat
-                    titre={name}
-                    note={total_rating}
-                    date={first_release_date}
-                    cover={cover}
-
-                />
-
-
-
-            ))
-        }
-
-
-        return(
-            <div>
-                <Container textAlign='center'>
-
-                <h1>Résultats </h1>
-                <div className="ui centered cards">
-                {affichageRes}
-                </div>
-
-                    <button className="ui button blue" onClick={this.changementPage.bind(this)}>Suivant</button>
-                </Container>
-
-            </div>
-        )
-    }
-}
+        </Container>
+    );
+};
 
 export default PageResultat;
+
+
+

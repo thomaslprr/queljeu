@@ -19,7 +19,8 @@ class CarteDeResultat extends React.Component{
             note: this.props.note,
             console:this.props.console,
             cover: this.props.cover,
-            datesortie: this.props.date
+            datesortie: this.props.date,
+            cle: this.props.cle
 
         }
     }
@@ -29,15 +30,12 @@ class CarteDeResultat extends React.Component{
     render() {
 
         let time_to_show = this.state.datesortie; // unix timestamp in seconds
-        console.log("date unix : "+time_to_show);
         let t = new Date(time_to_show * 1000);
-        console.log("date format date : "+t);
 
         let moisEnString = monthNamesFr[t.getMonth()];
 
         let formatted = moisEnString+" "+t.getFullYear();
 
-        console.log("date formatée : "+formatted);
 
 
         let image;
@@ -49,14 +47,13 @@ class CarteDeResultat extends React.Component{
 
 
         return (
-            <a className="ui card" >
+            <a  key={this.state.cle} className="ui card" >
                     <div className="image">
                         <img src={image} height="290" width="360"/>
                     </div>
                     <div className="content">
                         <div className="header">{this.state.titre}</div>
                         <div className="meta">
-                            <a>{this.state.console}</a>
                         </div>
                         <div className="description">
                             {formatted}
