@@ -301,7 +301,7 @@ class Questionnaire extends React.Component {
         let not="(total_rating >=  "+note[0]+" & total_rating <= "+note[1]+")";
         val=[...val,not];
 
-        let ann = "release_dates.y = "+annee;
+        let ann = "first_release_date >= "+annee[0]+" & first_release_date <= "+annee[1];
         val=[...val,ann];
 
         let request = "fields *, cover.image_id ;";
@@ -323,16 +323,19 @@ class Questionnaire extends React.Component {
     }
 
     miseEnFormeAnnee(tableauAnnee){
-        let listeannee="(";
-        for(let i = tableauAnnee[0] ; i <= tableauAnnee[1] ;i++){
-            if(i!=tableauAnnee[1]){
-                listeannee+=i+",";
-            }else{
-                listeannee+=i;
-            }
-        }
-        listeannee+=")";
-        return listeannee;
+        let tabAnnee;
+
+        let date1 = new Date(Date.UTC(tableauAnnee[0],0,1,0,0,0));
+        let date2 = new Date(Date.UTC(tableauAnnee[1],11,31,23,59,59));
+
+
+        let stamp1 = Math.round(date1.getTime()/1000);
+        let stamp2 = Math.round(date2.getTime()/1000);
+
+        tabAnnee=[stamp1,stamp2];
+        console.log(tabAnnee);
+
+        return tabAnnee;
     }
 
     executerRequete(){
