@@ -24,7 +24,7 @@ const PageResultat = ({req}) => {
                     'Accept': 'application/json',
                     'user-key': userKey
                 },
-                data: requete+"limit 500;"
+                data: requete+"limit 200;"
             });
             setPosts(res.data);
             console.log(res.data);
