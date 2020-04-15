@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "antd": "^4.1.1",
+    "array-move": "^2.2.1",
     "axios": "^0.19.2",
     "next": "9.3.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-sortable-hoc": "^1.11.0",
     "semantic-ui-react": "^0.88.2"
   }
 }

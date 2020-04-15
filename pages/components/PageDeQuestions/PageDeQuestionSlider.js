@@ -1,6 +1,7 @@
 import React from 'react';
 import { Slider} from 'antd';
 import {Container, Label} from "semantic-ui-react";
+import ResetQuizzButton from "../ResetQuizzButton";
 
 
 class PageDeQuestionSlider extends React.Component {
@@ -62,17 +63,12 @@ class PageDeQuestionSlider extends React.Component {
         if(this.state.titre){
              titre = this.state.titre;
         }
-        let bouttonSuivant;
-        if(titre=="Note" ){
-            bouttonSuivant= <button className="ui massive button green" onClick={this.changerTableau.bind(this)}>Voir les résultats</button>
-
-        }else{
-           bouttonSuivant = <button className="ui vertical animated button blue huge" onClick={this.changerTableau.bind(this)}>
+        let bouttonSuivant = <button className="ui vertical animated button blue huge" onClick={this.changerTableau.bind(this)}>
                 <div className="hidden content">Suivant</div>
                 <div className="visible content"><i aria-hidden="true" className="arrow right icon"></i></div>
-            </button>
+            </button>;
 
-        }
+
 
         let slider;
         let min,max,rang;
@@ -88,6 +84,7 @@ class PageDeQuestionSlider extends React.Component {
                            max={max}
                            tooltipVisible={false}
                            onChange={(value)=> this.changementDate(value)}
+                           style={{width:75+'vw'}}
             />
         }
 
@@ -97,13 +94,9 @@ class PageDeQuestionSlider extends React.Component {
 
                 {slider}
 
-                <Container textAlign='center'>
-
                     {affichagedate}
                     {bouttonSuivant}
-
-
-                 </Container>
+                    <ResetQuizzButton/>
 
             </div>
         );

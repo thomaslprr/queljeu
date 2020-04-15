@@ -5,6 +5,8 @@ import PageDeQuestionGenre from "./PageDeQuestions/PageDeQuestionGenre";
 import axios from "axios";
 import PageDeQuestionSlider from "./PageDeQuestions/PageDeQuestionSlider";
 import PageResultat from "./PageDeResultat/PageResultat";
+import PageFiltre from "./PageDeQuestions/PageFiltre";
+import {Container} from "semantic-ui-react";
 
 
 const proxyCORS = "https://contre-cors.herokuapp.com/";
@@ -18,6 +20,8 @@ const sousTitrePerspective = "Sélectionne tes types de perspectives préférés
 const sousTitreNote = "Quelle note veux-tu que le jeu est ?";
 const sousTitreAnnee = "Entre quelles dates veux-tu que le jeu soit sorti ?";
 const sousTitreResultat = "Voici la sélection des jeux fait pour toi";
+const sousTitreTrie = "Quels sont tes critères les plus importants pour choisir un jeu ? (Trie par ordre d'importance)";
+
 
 
 
@@ -35,6 +39,7 @@ class Questionnaire extends React.Component {
             mode:[],
             annee:[],
             note:[],
+            trie:[],
             perspective:[],
             valeurGenres: "loading",
             valeurThemes: "loading",
@@ -99,6 +104,13 @@ class Questionnaire extends React.Component {
         })
     }
 
+
+    setTrie(val){
+        this.setState({
+            trie: val
+        });
+        this.setEtape();
+    }
     setSousTitre(val){
         if(this.props.setSousTitre){
 
@@ -135,8 +147,12 @@ class Questionnaire extends React.Component {
             case 7:
                 this.props.setSousTitre(sousTitreNote);
                 break;
+            //trie
+                case 8:
+                    this.props.setSousTitre(sousTitreTrie);
+                    break;
             //resultat
-            case 8:
+            case 9:
                 this.props.setSousTitre(sousTitreResultat);
                 this.executerRequete();
                 break;
@@ -264,7 +280,7 @@ class Questionnaire extends React.Component {
 
     }
 
-    genererationRequete(plateforme,genre,theme,mode,perspective,annee,note){
+    genererationRequete(plateforme,genre,theme,mode,perspective,annee,note,trie){
         let val= [];
 
         let plat = "";
@@ -304,6 +320,8 @@ class Questionnaire extends React.Component {
         let ann = "first_release_date >= "+annee[0]+" & first_release_date <= "+annee[1];
         val=[...val,ann];
 
+        let tri="sort "+trie+" desc;"
+
         let request = "fields *, cover.image_id ;";
         if(val.length>0){
             request+=" w ";
@@ -314,9 +332,10 @@ class Questionnaire extends React.Component {
                     request+=val[i];
                 }
             }
-            request+=";";
+            request+="; "+tri;
         }
 
+        console.log(request);
         return request;
 
 
@@ -351,11 +370,33 @@ class Questionnaire extends React.Component {
 
         const anneeJeuFilter = this.miseEnFormeAnnee(this.state.annee);
 
-        let requete =this.genererationRequete(plateformeJeuFilter,genreJeuFilter,themeJeuFilter,modeJeuFilter,perspectiveJeuFilter,anneeJeuFilter,noteJeuFilter);
+        const trieJeuFilter = this.trierPar(this.state.trie);
+
+        let requete =this.genererationRequete(plateformeJeuFilter,genreJeuFilter,themeJeuFilter,modeJeuFilter,perspectiveJeuFilter,anneeJeuFilter,noteJeuFilter,trieJeuFilter);
 
         this.setState({
             requete: requete
         })
+    }
+
+    trierPar(filtre){
+        let valeurFiltre;
+        switch (filtre) {
+            case "Le mieux noté 💯":
+                valeurFiltre="total_rating";
+                break;
+            case "Le plus populaire 📊":
+                valeurFiltre="popularity";
+                break;
+            case "Le plus récent 📅":
+                valeurFiltre="first_release_date";
+                break;
+            default:
+                valeurFiltre="total_rating";
+                break;
+        }
+
+        return valeurFiltre;
     }
 
     miseEnFormeTableauDeReponse(val){
@@ -477,6 +518,9 @@ class Questionnaire extends React.Component {
                 questionnaire6 = <PageDeQuestionSlider min={0} max={100} range={[0,100]} envoyerValeur={this.setNote.bind(this)} titre="Note"/>;
                 break;
             case 8:
+                questionnaire6 = <PageFiltre changerTableauTrie={this.setTrie.bind(this)} />;
+                break;
+            case 9:
                 if(this.state.requete){
                     questionnaire6 = <PageResultat  req={this.state.requete}/>
                 }
@@ -488,12 +532,16 @@ class Questionnaire extends React.Component {
 
         return (
             <div>
-                {questionnaire}
-                {questionnaire2}
-                {questionnaire3}
-                {questionnaire4}
-                {questionnaire5}
-                {questionnaire6}
+                <Container textAlign='center'>
+
+                    {questionnaire}
+                    {questionnaire2}
+                    {questionnaire3}
+                    {questionnaire4}
+                    {questionnaire5}
+                    {questionnaire6}
+
+                </Container>
 
 
             </div>
