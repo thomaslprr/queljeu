@@ -48,8 +48,8 @@ class CarteDeResultat extends React.Component{
 
 
         return (
-            <Link href="/game/[slug]" as={`/game/${this.state.slug}`}>
-            <a className="ui card" >
+            <Link href="/game/[slug]" as={`/game/${this.state.slug}`} passHref={true}>
+            <a className="ui card" target="_blank">
                     <div className="image">
                         <img src={image} height="290" width="360"/>
                     </div>
