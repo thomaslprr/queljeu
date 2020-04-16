@@ -17,7 +17,7 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
 
         const [coverUrl,setCoverUrl] = useState("");
 
-        const req = "fields * , cover.image_id , genres.name, themes.name, platforms.name, websites.category, websites.url ; where slug=\""+slug+"\" ; limit 1;";
+        const req = "fields * , cover.image_id , genres.name, player_perspectives.name, genres.url,themes.name, platforms.name, websites.category, websites.url ; where slug=\""+slug+"\" ; limit 1;";
 
         useEffect(() => {
                 console.log(slug);
@@ -54,22 +54,32 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
         }else{
                 return <div>
                         <div className="ui two column centered grid">
-                                <div className="column">
-                                        <img className="ui medium rounded image" src={coverUrl} />
-                                </div>
-                                <div className="column">
-                                        <h1 className="ui header">
-                                                {dataGenerale.name}
-                                                <div className="sub header"><UnixToDate unix={dataGenerale.first_release_date}/></div>
-                                        </h1>
-                                        <Rate note={dataGenerale.total_rating} noteMax={5} />
+                                <div className="row">
+                                        <div className="column">
+                                                <img className="ui medium rounded image" src={coverUrl} />
+                                        </div>
+                                        <div className="column">
+                                                <h1 className="ui header">
+                                                        {dataGenerale.name}
+                                                        <div className="sub header"><UnixToDate unix={dataGenerale.first_release_date}/></div>
+                                                </h1>
+
+                                                <Rate note={dataGenerale.total_rating} noteMax={5} /> <br/>
+                                                <AffichageListeItem listeItem={dataGenerale.platforms || -1} name="" preTexte="🎮"/>
+                                                <br/>
+
+                                                <span>{dataGenerale.summary || ''}</span>
 
 
-                                        <AffichageListeItem listeItem={dataGenerale.genres || 'error'}/>
-                                        <AffichageListeItem listeItem={dataGenerale.themes || 'error'}/>
-                                        <AffichageListeItem listeItem={dataGenerale.platforms || 'error'}/>
 
 
+                                                <AffichageListeItem listeItem={dataGenerale.genres || -1} name="Genre"/>
+                                                <AffichageListeItem listeItem={dataGenerale.themes || -1} name="Thème"/>
+                                                <AffichageListeItem listeItem={dataGenerale.player_perspectives || -1} name="Perspective du joueur"/>
+
+
+
+                                        </div>
                                 </div>
                         </div>
 
