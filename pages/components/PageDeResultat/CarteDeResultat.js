@@ -1,14 +1,7 @@
 import React from 'react';
 import {Rating} from "semantic-ui-react";
 import Link from "next/link";
-
-const monthNamesEn = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
-
-const monthNamesFr = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
-    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
-];
+import UnixToDate from "../UnixToDate";
 
 
 class CarteDeResultat extends React.Component{
@@ -30,20 +23,16 @@ class CarteDeResultat extends React.Component{
 
     render() {
 
-        let time_to_show = this.state.datesortie; // unix timestamp in seconds
-        let t = new Date(time_to_show * 1000);
-
-        let moisEnString = monthNamesFr[t.getMonth()];
-
-        let formatted = moisEnString+" "+t.getFullYear();
-
-
-
         let image;
         if(this.state.cover && this.state.cover.image_id ){
             image = "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/"+this.state.cover.image_id+".jpg";
         }else{
             image = "https://via.placeholder.com/720.jpg";
+        }
+
+        let datesortie = "";
+        if(this.state.datesortie){
+            datesortie= <UnixToDate unix={this.state.datesortie}/>
         }
 
 
@@ -58,7 +47,7 @@ class CarteDeResultat extends React.Component{
                         <div className="meta">
                         </div>
                         <div className="description">
-                            {formatted}
+                            {datesortie}
                         </div>
                     </div>
                     <div className="extra">
