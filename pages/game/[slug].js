@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React, {useEffect, useState} from "react";
-import PageDescriptifJeu from "../components/PageDescriptifJeu";
+import PageDescriptifJeu from "../components/PageDetailJeu/PageDescriptifJeu";
+import {Container} from "semantic-ui-react";
 
 
 const PageJeu = ({slug}) => {
@@ -23,7 +24,12 @@ const PageJeu = ({slug}) => {
         </Head>
         <main>
 
+
+            <Container textAlign='center'>
+
             <PageDescriptifJeu slug={slug} changerTitreCallBack={changerTitre}/>
+
+            </Container>
 
          </main>
             <footer>
