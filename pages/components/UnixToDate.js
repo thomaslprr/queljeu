@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 
-const UnixToDate = ({unix}) => {
+const UnixToDate = ({unix,langue}) => {
 
     const monthNamesEn = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -26,7 +26,13 @@ const UnixToDate = ({unix}) => {
         const time_to_show = unix;// unix timestamp in seconds
         const t = new Date(time_to_show * 1000);
 
-        const moisEnString = monthNamesFr[t.getMonth()];
+        let moisEnString = monthNamesFr[t.getMonth()];;
+
+        if(langue && langue=="en"){
+
+             moisEnString = monthNamesEn[t.getMonth()];
+
+        }
 
         const formatted = moisEnString + " " + t.getFullYear();
 
