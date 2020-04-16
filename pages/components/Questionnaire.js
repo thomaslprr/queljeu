@@ -335,7 +335,6 @@ class Questionnaire extends React.Component {
             request+="; "+tri;
         }
 
-        console.log(request);
         return request;
 
 
@@ -352,7 +351,6 @@ class Questionnaire extends React.Component {
         let stamp2 = Math.round(date2.getTime()/1000);
 
         tabAnnee=[stamp1,stamp2];
-        console.log(tabAnnee);
 
         return tabAnnee;
     }

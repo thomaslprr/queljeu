@@ -25,11 +25,9 @@ const PageJeu = ({slug}) => {
         <main>
 
 
-            <Container textAlign='center'>
 
             <PageDescriptifJeu slug={slug} changerTitreCallBack={changerTitre}/>
 
-            </Container>
 
          </main>
             <footer>

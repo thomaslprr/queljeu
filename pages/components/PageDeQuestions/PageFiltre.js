@@ -40,7 +40,6 @@ class PageFiltre extends React.Component {
                     <div className="ui blue relaxed divided list center aligned">
                         <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
                     </div>
-                <ResetQuizzButton/>
                  <button className="ui massive button green" onClick={this.changerTableauTrie.bind(this)}>Voir les résultats</button>
 
         </div>);

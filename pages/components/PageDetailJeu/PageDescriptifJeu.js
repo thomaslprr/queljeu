@@ -4,6 +4,8 @@ import axios from "axios";
 import UnixToDate from "../UnixToDate";
 import AffichageListeItem from "./AffichageListeItem";
 import Rate from "../Rate";
+import LinkList from "./LinkList";
+import {Container} from "semantic-ui-react";
 
 
 const proxyCORS = "https://contre-cors.herokuapp.com/";
@@ -20,9 +22,7 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
         const req = "fields * , cover.image_id , genres.name, player_perspectives.name, genres.url,themes.name, platforms.name, websites.category, websites.url ; where slug=\""+slug+"\" ; limit 1;";
 
         useEffect(() => {
-                console.log(slug);
                 const fetchPosts = async () => {
-                        console.log(req);
                         setLoading(true);
                         const res = await axios({
                                 url: ""+proxyCORS+"https://api-v3.igdb.com/games",
@@ -53,12 +53,12 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
                 return <div>Chargement ...</div>
         }else{
                 return <div>
-                        <div className="ui two column centered grid">
+                        <div className="ui two column middle aligned stackable center aligned page grid">
                                 <div className="row">
                                         <div className="column">
-                                                <img className="ui medium rounded image" src={coverUrl} />
+                                                <img className="ui medium rounded large image" src={coverUrl} />
                                         </div>
-                                        <div className="column">
+                                        <div className="column float left aligned" >
                                                 <h1 className="ui header">
                                                         {dataGenerale.name}
                                                         <div className="sub header"><UnixToDate unix={dataGenerale.first_release_date}/></div>
@@ -66,9 +66,10 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
 
                                                 <Rate note={dataGenerale.total_rating} noteMax={5} /> <br/>
                                                 <AffichageListeItem listeItem={dataGenerale.platforms || -1} name="" preTexte="🎮"/>
-                                                <br/>
+                                                <br/><br/>
 
                                                 <span>{dataGenerale.summary || ''}</span>
+                                                <br/>
 
 
 
@@ -76,11 +77,15 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
                                                 <AffichageListeItem listeItem={dataGenerale.genres || -1} name="Genre"/>
                                                 <AffichageListeItem listeItem={dataGenerale.themes || -1} name="Thème"/>
                                                 <AffichageListeItem listeItem={dataGenerale.player_perspectives || -1} name="Perspective du joueur"/>
+                                                <LinkList website={dataGenerale.websites || -1 }/>
 
 
 
                                         </div>
                                 </div>
+                                <div className="row">
+                                </div>
+
                         </div>
 
               </div>

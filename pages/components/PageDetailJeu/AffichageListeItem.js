@@ -37,7 +37,7 @@ const AffichageListeItem = ({name,listeItem,preTexte}) => {
             return (
                 <div>
 
-                    {preTexte || ''}<div className="sub header ui mini horizontal divided list">{txt}</div>
+                    <div className="sub header ui mini horizontal divided list">{preTexte || ''}{txt}</div>
                 </div>
 
             )

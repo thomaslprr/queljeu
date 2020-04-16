@@ -133,12 +133,14 @@ class PageDeQuestionPlateforme extends React.Component {
 
             </div>
 
+                <br/>
+                <ResetQuizzButton/>
                 <button className="ui vertical animated button blue huge" onClick={this.changerTableauPlateforme.bind(this)}>
                     <div className="hidden content">Suivant</div>
                     <div className="visible content"><i aria-hidden="true" className="arrow right icon"></i></div>
                 </button>
 
-                <ResetQuizzButton/>
+
 
             </div>
 

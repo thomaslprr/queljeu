@@ -128,6 +128,7 @@ class PageDeQuestionGenre extends React.Component {
                     {listeDesGenres}
 
                 </div>
+                <br/>
 
                 <ResetQuizzButton/>
 

@@ -95,8 +95,8 @@ class PageDeQuestionSlider extends React.Component {
                 {slider}
 
                     {affichagedate}
-                    {bouttonSuivant}
-                    <ResetQuizzButton/>
+                <ResetQuizzButton/>
+                {bouttonSuivant}
 
             </div>
         );
