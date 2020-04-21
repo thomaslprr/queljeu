@@ -47,6 +47,21 @@ const PageResultat = ({req}) => {
         window.scroll({top: 0, left: 0, behavior: 'smooth' });
     }
 
+
+    let pagination;
+    if(!loading){
+         pagination= <div><br/><Pagination
+            defaultActivePage={currentPage}
+            firstItem={null}
+            lastItem={null}
+            pointing
+            secondary
+            totalPages={Math.ceil(posts.length / postsPerPage)}
+            onPageChange={(event,data)=>paginate(data.activePage)}
+        />
+         </div>;
+    }
+
     return (
         <Container textAlign='center'>
 
@@ -54,15 +69,7 @@ const PageResultat = ({req}) => {
 
             <Cartes cartes={currentPosts} loading={loading} />
 
-            <Pagination
-                defaultActivePage={currentPage}
-                firstItem={null}
-                lastItem={null}
-                pointing
-                secondary
-                totalPages={Math.ceil(posts.length / postsPerPage)}
-                onPageChange={(event,data)=>paginate(data.activePage)}
-            />
+            {pagination}
 
         </Container>
     );
