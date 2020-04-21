@@ -6,6 +6,7 @@ import AffichageListeItem from "./AffichageListeItem";
 import Rate from "../Rate";
 import LinkList from "./LinkList";
 import {Container} from "semantic-ui-react";
+import GaleriePhotoVideo from "./GaleriePhotoVideo";
 
 
 const proxyCORS = "https://contre-cors.herokuapp.com/";
@@ -19,7 +20,7 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
 
         const [coverUrl,setCoverUrl] = useState("");
 
-        const req = "fields * , cover.image_id , genres.name, player_perspectives.name, genres.url,themes.name, platforms.name, websites.category, websites.url ; where slug=\""+slug+"\" ; limit 1;";
+        const req = "fields * , cover.image_id , genres.name, player_perspectives.name, genres.url,themes.name, platforms.name, websites.category,videos.name, videos.video_id , screenshots.image_id, screenshots.height, screenshots.width, websites.url ; where slug=\""+slug+"\" ; limit 1;";
 
         useEffect(() => {
                 const fetchPosts = async () => {
@@ -83,12 +84,13 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
 
                                         </div>
                                 </div>
-                                <div className="row">
-                                </div>
 
                         </div>
 
-              </div>
+                        <GaleriePhotoVideo screenshot={dataGenerale.screenshots}/>
+
+
+                </div>
 
         }
 

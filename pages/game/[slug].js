@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React, {useEffect, useState} from "react";
 import PageDescriptifJeu from "../components/PageDetailJeu/PageDescriptifJeu";
+
 import {Container} from "semantic-ui-react";
 
 

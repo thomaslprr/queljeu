@@ -77,7 +77,7 @@ const LinkList = ({website}) => {
     if(website!=-1){
         return  <Container textAlign='center'>{txt}</Container>
     }else{
-        return <div>Error</div>
+        return <div></div>
     }
 
 
