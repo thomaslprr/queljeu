@@ -9,9 +9,10 @@ const BouttonDirectionnel = ({direction,classeicon,itemActuel, itemTotal, clic})
 
 
 
-        if(itemActuel==itemTotal && direction=="next"){
+        if(itemActuel-1==itemTotal && direction=="next"){
             setAffichage(false);
         }else if(direction=="next"){
+
             setAffichage(true);
         }
 
@@ -23,12 +24,13 @@ const BouttonDirectionnel = ({direction,classeicon,itemActuel, itemTotal, clic})
         }
 
 
-    },[itemActuel]);
+    },[itemActuel,itemTotal]);
+
 
 
     if(affichage){
         return (
-            <button className="ui circular icon button" onClick={clic}>
+            <button className="ui circular icon button" onClick={clic} >
                 <i aria-hidden="true" className={classeicon}></i>
             </button>
         )

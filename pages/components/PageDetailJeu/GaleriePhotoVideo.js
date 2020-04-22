@@ -11,14 +11,22 @@ const GaleriePhotoVideo = ({screenshot, video}) => {
 
     const [itemTotal,setItemTotal] = useState(null);
 
-    const [itemParPage, setItemParPage] = useState(2);
+    const [itemParPage, setItemParPage] = useState(1);
+
+    const [itemVideo, setItemVideo] = useState(null);
 
 
     useEffect(()=>{
 
-        if(screenshot){
+        if(video){
+            setItemTotal(screenshot.length+video.length);
+        }else if (screenshot){
             setItemTotal(screenshot.length);
+        }
+
+        if(video||screenshot){
             remplirTableauPhoto();
+
         }
 
     },[currentItem]);
@@ -41,48 +49,58 @@ const GaleriePhotoVideo = ({screenshot, video}) => {
 
 
 
-
-
     const remplirTableauPhoto = () => {
         let photo = [];
 
 
-            for(let i=0; i< screenshot.length;i++){
+
+        for(let i=0; i< screenshot.length;i++){
                 photo.push({id:i,src: "https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/"+screenshot[i].image_id+".jpg", width: screenshot[i].width, height: screenshot[i].height});
             }
 
 
+        if(video){
+            setItemVideo(photo.length);
+            for(let j = 0; j<video.length ; j++){
+                photo.push(video[j]);
+            }
+        }
         setPhotos(photo);
     }
 
 
-    return (
-        <Grid columns='equal' centered>
-            <Grid.Column verticalAlign='middle' textAlign='right' >
-                <BouttonDirectionnel direction="prec"
-                                     itemActuel={currentItem}
-                                     itemTotal={itemTotal-1}
-                                     clic={()=> itemPrecedent() }
-                                     classeicon="angle double left icon"
-                />
-            </Grid.Column>
-            <Grid.Column width={10}>
-                    <Photos photos={photos} nbItemParPage={itemParPage} currentItem={currentItem}/>
-            </Grid.Column>
-            <Grid.Column verticalAlign='middle' textAlign='left' >
-                <BouttonDirectionnel direction="next"
-                                     itemActuel={currentItem}
-                                     itemTotal={itemTotal-1}
-                                     clic={()=> itemSuivant() }
-                                     classeicon="angle double right icon"
-                />
-            </Grid.Column>
-        </Grid>
+    if(screenshot || video){
+        return (
+            <Grid columns='equal' centered>
+                <Grid.Column verticalAlign='middle' textAlign='right' >
+                    <BouttonDirectionnel direction="prec"
+                                         itemActuel={currentItem}
+                                         itemTotal={itemTotal-1}
+                                         clic={()=> itemPrecedent() }
+                                         classeicon="angle double left icon"
+                    />
+                </Grid.Column>
+                <Grid.Column verticalAlign='center'  style={{width:300+'px'}}>
+                    <Photos photos={photos} nbItemParPage={itemParPage} currentItem={currentItem} itemVideo={itemVideo}/>
+                </Grid.Column>
+                <Grid.Column verticalAlign='middle' textAlign='left' >
+                    <BouttonDirectionnel direction="next"
+                                         itemActuel={currentItem}
+                                         itemTotal={itemTotal-1}
+                                         clic={()=> itemSuivant() }
+                                         classeicon="angle double right icon"
+                    />
+                </Grid.Column>
+            </Grid>
 
 
 
 
-    )
+        )
+    }else{
+        return <div></div>
+    }
+
 
 
 

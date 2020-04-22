@@ -87,7 +87,7 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
 
                         </div>
 
-                        <GaleriePhotoVideo screenshot={dataGenerale.screenshots}/>
+                        <GaleriePhotoVideo screenshot={dataGenerale.screenshots} video={dataGenerale.videos}/>
 
 
                 </div>
