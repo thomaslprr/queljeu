@@ -15,9 +15,9 @@ class CarteDeResultat extends React.Component{
             cover: this.props.cover,
             datesortie: this.props.date,
             slug: this.props.slug
-
         }
     }
+
 
 
 
@@ -34,6 +34,7 @@ class CarteDeResultat extends React.Component{
         if(this.state.datesortie){
             datesortie= <UnixToDate unix={this.state.datesortie}/>
         }
+
 
 
         return (

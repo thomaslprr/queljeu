@@ -6,24 +6,21 @@ import axios from "axios";
 import PageDeQuestionSlider from "./PageDeQuestions/PageDeQuestionSlider";
 import PageResultat from "./PageDeResultat/PageResultat";
 import PageFiltre from "./PageDeQuestions/PageFiltre";
-import {Container} from "semantic-ui-react";
+import {Container, Progress} from "semantic-ui-react";
 
 
 const proxyCORS = "https://contre-cors.herokuapp.com/";
 const userKey = '634b219991f28ec8c656387de180af49';
 
-const sousTitrePlateforme = "Sélectionne les plateformes sur lesquels tu veux jouer";
-const sousTitreGenre = "Sélectionne tes genres préférés";
-const sousTitreTheme = "Sélectionne tes thèmes préférés";
-const sousTitreMode = "Sélectionne tes modes de jeu préférés";
-const sousTitrePerspective = "Sélectionne tes types de perspectives préférés";
-const sousTitreNote = "Quelle note veux-tu que le jeu est ?";
-const sousTitreAnnee = "Entre quelles dates veux-tu que le jeu soit sorti ?";
-const sousTitreResultat = "Voici la sélection des jeux fait pour toi";
-const sousTitreTrie = "Quels sont tes critères les plus importants pour choisir un jeu ? (Trie par ordre d'importance)";
-
-
-
+const texteQuizz = [{titre:"Plateforme",desc:"Sélectionne les plateformes sur lesquelles tu veux jouer"},
+    {titre: "Genre", desc:"Sélectionne tes genres préférés"},
+    {titre: "Thème", desc:"Sélectionne tes thèmes préférés"},
+    {titre: "Mode", desc:"Sélectionne tes modes de jeu préférés"},
+    {titre: "Perspective", desc:"Sélectionne tes perspectives préférées"},
+    {titre: "Année", desc:"Entre quelles dates veux-tu que le jeu soit sorti ?"},
+    {titre: "Note", desc:"Quelle note veux-tu que le jeu est ?"},
+    {titre: "Filtre", desc:"Quels sont tes critères les plus importants pour choisir un jeu ? (Trie par ordre d'importance)"},
+    {titre: "Résultat", desc:"Voici la sélection des jeux faits pour toi"}];
 
 
 class Questionnaire extends React.Component {
@@ -54,8 +51,6 @@ class Questionnaire extends React.Component {
         this.PageDeQuestionEnfant2 = React.createRef();
         this.PageDeQuestionEnfant3 = React.createRef();
         this.PageDeQuestionEnfant4 = React.createRef();
-        this.PageDeQuestionEnfant5 = React.createRef();
-
 
     }
 
@@ -104,6 +99,14 @@ class Questionnaire extends React.Component {
         })
     }
 
+    setPrecedentEtape(){
+        this.setState({
+            etape: this.state.etape - 1
+        },()=>{
+            this.setSousTitre(this.state.etape);
+        })
+    }
+
 
     setTrie(val){
         this.setState({
@@ -114,46 +117,12 @@ class Questionnaire extends React.Component {
     setSousTitre(val){
         if(this.props.setSousTitre){
 
+            this.props.setSousTitre(texteQuizz[val-1].desc);
+
             switch(val){
 
-            //plateforme
-            case 1:
-                this.props.setSousTitre(sousTitrePlateforme);
-                break;
-
-            //genre
-            case 2:
-                this.props.setSousTitre(sousTitreGenre);
-                break;
-            //theme
-            case 3:
-                this.props.setSousTitre(sousTitreTheme);
-                break;
-
-             //mode
-            case 4:
-                this.props.setSousTitre(sousTitreMode);
-                break;
-
-            //perspective
-            case 5:
-                this.props.setSousTitre(sousTitrePerspective);
-                break;
-            //annee
-            case 6:
-                this.props.setSousTitre(sousTitreAnnee);
-                break;
-            //note
-            case 7:
-                this.props.setSousTitre(sousTitreNote);
-                break;
-            //trie
-                case 8:
-                    this.props.setSousTitre(sousTitreTrie);
-                    break;
             //resultat
             case 9:
-                this.props.setSousTitre(sousTitreResultat);
                 this.executerRequete();
                 break;
         }
@@ -372,6 +341,7 @@ class Questionnaire extends React.Component {
 
         let requete =this.genererationRequete(plateformeJeuFilter,genreJeuFilter,themeJeuFilter,modeJeuFilter,perspectiveJeuFilter,anneeJeuFilter,noteJeuFilter,trieJeuFilter);
 
+        console.log("requete : "+requete);
         this.setState({
             requete: requete
         })
@@ -490,6 +460,7 @@ class Questionnaire extends React.Component {
         let questionnaire5;
         let questionnaire6;
 
+        let slideProgress=<Progress percent={(this.state.etape/8)*100} value={this.state.etape}  size='tiny' indicating style={{width:40+'vw',marginRight: 'auto', marginLeft: 'auto'}}/>;
 
 
 
@@ -498,29 +469,30 @@ class Questionnaire extends React.Component {
                 questionnaire = <PageDeQuestionPlateforme modifierTableauPlateforme={this.setPlateforme.bind(this)} />;
                 break;
             case 2:
-                questionnaire = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant1} tabGenres={this.state.valeurGenres} modifierTableauGenre={this.setGenre.bind(this)} value="Genre" />;
+                questionnaire = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant1} tabGenres={this.state.valeurGenres} modifierTableauGenre={this.setGenre.bind(this)} retour={()=>this.setPrecedentEtape()} value={texteQuizz[1].titre} />;
                 break;
             case 3:
-                questionnaire2 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant2} tabGenres={this.state.valeurThemes}  modifierTableauGenre={this.setTheme.bind(this)} value="Thème" />;
+                questionnaire2 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant2} tabGenres={this.state.valeurThemes}  modifierTableauGenre={this.setTheme.bind(this)} retour={()=>this.setPrecedentEtape()} value={texteQuizz[2].titre} />;
                 break;
             case 4:
-                questionnaire3 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant3} tabGenres={this.state.valeurModes}  modifierTableauGenre={this.setMode.bind(this)} value="Mode" />;
+                questionnaire3 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant3} tabGenres={this.state.valeurModes}  modifierTableauGenre={this.setMode.bind(this)} retour={()=>this.setPrecedentEtape()} value={texteQuizz[3].titre} />;
                 break;
             case 5:
-                questionnaire4 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant4} tabGenres={this.state.valeurPerspectives}  modifierTableauGenre={this.setPerspective.bind(this)} value="Perspective du joueur" />;
+                questionnaire4 = <PageDeQuestionGenre ref={this.PageDeQuestionEnfant4} tabGenres={this.state.valeurPerspectives}  modifierTableauGenre={this.setPerspective.bind(this)} retour={()=>this.setPrecedentEtape()} value={texteQuizz[4].titre} />;
                 break;
             case 6:
-                questionnaire5 = <PageDeQuestionSlider min={1972} max={2022} range={[2010,2020]} envoyerValeur={this.setAnnee.bind(this)} titre="Année"/>;
+                questionnaire5 = <PageDeQuestionSlider min={1972} max={2022} range={[2010,2020]} envoyerValeur={this.setAnnee.bind(this)} retour={()=>this.setPrecedentEtape()} titre={texteQuizz[5].titre}/>;
                 break;
             case 7:
-                questionnaire6 = <PageDeQuestionSlider min={0} max={100} range={[0,100]} envoyerValeur={this.setNote.bind(this)} titre="Note"/>;
+                questionnaire6 = <PageDeQuestionSlider min={0} max={100} range={[0,100]} envoyerValeur={this.setNote.bind(this)} retour={()=>this.setPrecedentEtape()} titre={texteQuizz[6].titre}/>;
                 break;
             case 8:
-                questionnaire6 = <PageFiltre changerTableauTrie={this.setTrie.bind(this)} />;
+                questionnaire6 = <PageFiltre changerTableauTrie={this.setTrie.bind(this)} retour={()=>this.setPrecedentEtape()} titre={texteQuizz[7].titre} />;
                 break;
             case 9:
                 if(this.state.requete){
                     questionnaire6 = <PageResultat  req={this.state.requete}/>
+                    slideProgress = <div></div>
                 }
                 break;
 
@@ -530,7 +502,10 @@ class Questionnaire extends React.Component {
 
         return (
             <div>
+                {slideProgress}
+
                 <Container textAlign='center'>
+
 
                     {questionnaire}
                     {questionnaire2}

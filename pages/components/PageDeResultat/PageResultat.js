@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Pagination} from "semantic-ui-react";
+import {Container, Icon, Pagination} from "semantic-ui-react";
 import axios from "axios";
 import Cartes from "./Cartes";
 
@@ -62,17 +62,23 @@ const PageResultat = ({req}) => {
          </div>;
     }
 
-    return (
-        <Container textAlign='center'>
+    if(loading){
+        return  <Icon loading name='game' size='massive' color='blue'/>;
+    }else{
+        return (
+            <Container textAlign='center'>
 
-            <h1>Résultats </h1>
+                <h1>Résultats </h1>
 
-            <Cartes cartes={currentPosts} loading={loading} />
+                <Cartes cartes={currentPosts} loading={loading} />
 
-            {pagination}
+                {pagination}
 
-        </Container>
-    );
+            </Container>
+        );
+    }
+
+
 };
 
 export default PageResultat;

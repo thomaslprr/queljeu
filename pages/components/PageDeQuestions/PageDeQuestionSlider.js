@@ -2,6 +2,7 @@ import React from 'react';
 import { Slider} from 'antd';
 import {Container, Label} from "semantic-ui-react";
 import ResetQuizzButton from "../ResetQuizzButton";
+import BoutonPrecedentQuestion from "./BoutonPrecedentQuestion";
 
 
 class PageDeQuestionSlider extends React.Component {
@@ -95,6 +96,7 @@ class PageDeQuestionSlider extends React.Component {
                 {slider}
 
                     {affichagedate}
+                <BoutonPrecedentQuestion fonctionClique={this.props.retour || null}/>
                 <ResetQuizzButton/>
                 {bouttonSuivant}
 

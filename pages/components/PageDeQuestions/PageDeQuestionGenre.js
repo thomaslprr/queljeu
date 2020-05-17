@@ -2,6 +2,7 @@ import React from 'react'
 
 import ResetQuizzButton from "../ResetQuizzButton";
 import Loader from "../Loader";
+import BoutonPrecedentQuestion from "./BoutonPrecedentQuestion";
 
 
 class PageDeQuestionGenre extends React.Component {
@@ -129,6 +130,8 @@ class PageDeQuestionGenre extends React.Component {
 
                 </div>
                 <br/>
+
+                <BoutonPrecedentQuestion fonctionClique={this.props.retour || null}/>
 
                 <ResetQuizzButton/>
 

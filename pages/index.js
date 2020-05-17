@@ -23,14 +23,8 @@ const Home = () => (
         <a href="/findagame" className="card">
           <h3>Trouve ton jeu &rarr;</h3>
           <p>Grâce à mon algorithme et une base de données remplie de milliers de jeux vidéos différents,
-              cet outil trouvera les meilleurs jeux fait pour toi.</p>
+              cet outil trouvera les meilleurs jeux faits pour toi.</p>
         </a>
-
-          <a href="https://nextjs.org/docs" className="card">
-              <h3>Catalogue des jeux &rarr;</h3>
-              <p>Retrouve la liste de tous les jeux vidéos. Tu peux effectuer des recherches très
-              précises de manière simple et rapide !</p>
-          </a>
 
       </div>
     </main>

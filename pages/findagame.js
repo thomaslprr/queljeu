@@ -9,7 +9,7 @@ class findagame extends React.Component {
         super(props);
         this.state = {
             questionnaireCommence: false,
-            soustitre:"Répond à 10 questions et trouve les meilleurs jeux fait pour toi !"
+            soustitre:"Répond à 10 questions et trouve les meilleurs jeux faits pour toi !"
         };
     }
 

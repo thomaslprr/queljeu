@@ -2,6 +2,7 @@ import React from 'react'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import ResetQuizzButton from "../ResetQuizzButton";
+import BoutonPrecedentQuestion from "./BoutonPrecedentQuestion";
 
 
 
@@ -21,7 +22,8 @@ const SortableList = SortableContainer(({items}) => {
 
 class PageFiltre extends React.Component {
     state = {
-        items: ['Le mieux noté 💯','Le plus populaire 📊',  'Le plus récent 📅']
+        items: ['Le mieux noté 💯','Le plus populaire 📊',  'Le plus récent 📅'],
+        titre: this.props.titre
     };
 
     changerTableauTrie(){
@@ -37,10 +39,17 @@ class PageFiltre extends React.Component {
 
     render() {
         return (<div>
-                    <div className="ui blue relaxed divided list center aligned">
+            <h1 className="ui header center aligned">{this.state.titre || ''}</h1>
+
+            <div className="ui blue relaxed divided list center aligned" style={{width:70+'vw',marginLeft:'auto',marginRight:'auto'}}>
                         <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
                     </div>
-                 <button className="ui massive button green" onClick={this.changerTableauTrie.bind(this)}>Voir les résultats</button>
+            <BoutonPrecedentQuestion fonctionClique={this.props.retour || null}/>
+            <ResetQuizzButton/>
+
+            <br/> <br/>
+
+            <button className="ui huge button green" onClick={this.changerTableauTrie.bind(this)}>Voir les résultats</button>
 
         </div>);
     }
