@@ -341,11 +341,11 @@ class Questionnaire extends React.Component {
 
         let requete =this.genererationRequete(plateformeJeuFilter,genreJeuFilter,themeJeuFilter,modeJeuFilter,perspectiveJeuFilter,anneeJeuFilter,noteJeuFilter,trieJeuFilter);
 
-        /**
-        console.log("requete : "+requete);
+
+        //console.log("requete : "+requete);
         this.setState({
             requete: requete
-        })*/
+        })
     }
 
     trierPar(filtre){
