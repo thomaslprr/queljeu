@@ -34,7 +34,7 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
                                 },
                                 data: req
                         });
-                        console.log(res.data[0]);
+                        //console.log(res.data[0]);
                         setDataGenerale(res.data[0]);
                         setLoading(false);
                         changerTitreCallBack(res.data[0].name);

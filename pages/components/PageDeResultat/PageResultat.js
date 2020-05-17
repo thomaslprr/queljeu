@@ -26,7 +26,7 @@ const PageResultat = ({req}) => {
                 },
                 data: requete+"limit 200;"
             });
-            console.log(res.data);
+            //console.log(res.data);
             setPosts(res.data);
             setLoading(false);
         };

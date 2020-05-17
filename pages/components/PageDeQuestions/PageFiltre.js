@@ -33,7 +33,7 @@ class PageFiltre extends React.Component {
     onSortEnd = ({oldIndex, newIndex}) => {
         this.setState(({items}) => ({
             items: arrayMove(items, oldIndex, newIndex),
-        }), ()=> console.log(this.state.items));
+        }));
     };
 
 
