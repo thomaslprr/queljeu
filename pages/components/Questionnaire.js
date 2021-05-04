@@ -9,7 +9,7 @@ import PageFiltre from "./PageDeQuestions/PageFiltre";
 import {Container, Progress} from "semantic-ui-react";
 
 
-const proxyCORS = "https://contre-cors.herokuapp.com/";
+const proxyCORS = "https://wage4urck0.execute-api.us-west-2.amazonaws.com/production/v4";
 const userKey = '634b219991f28ec8c656387de180af49';
 
 const texteQuizz = [{titre:"Plateforme",desc:"Sélectionne les plateformes sur lesquelles tu veux jouer"},
@@ -24,8 +24,6 @@ const texteQuizz = [{titre:"Plateforme",desc:"Sélectionne les plateformes sur l
 
 
 class Questionnaire extends React.Component {
-
-
 
     constructor(props) {
         super(props);
@@ -134,7 +132,7 @@ class Questionnaire extends React.Component {
     async componentDidMount() {
         //on charge tous les genres de l'api
         await axios({
-            url: ""+proxyCORS+"https://api-v3.igdb.com/genres",
+            url: ""+proxyCORS+"/genres",
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -165,7 +163,7 @@ class Questionnaire extends React.Component {
 
         //on charge tous les themes de l'api
         await axios({
-            url: ""+proxyCORS+"https://api-v3.igdb.com/themes",
+            url: ""+proxyCORS+"/themes",
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -194,7 +192,7 @@ class Questionnaire extends React.Component {
             });
 
         await axios({
-            url: ""+proxyCORS+"https://api-v3.igdb.com/game_modes",
+            url: ""+proxyCORS+"/game_modes",
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -221,7 +219,7 @@ class Questionnaire extends React.Component {
             });
 
          await axios({
-            url: ""+proxyCORS+"https://api-v3.igdb.com/player_perspectives",
+            url: ""+proxyCORS+"/player_perspectives",
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

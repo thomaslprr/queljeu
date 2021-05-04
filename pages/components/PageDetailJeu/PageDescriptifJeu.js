@@ -9,7 +9,7 @@ import {Container} from "semantic-ui-react";
 import GaleriePhotoVideo from "./GaleriePhotoVideo";
 
 
-const proxyCORS = "https://contre-cors.herokuapp.com/";
+const proxyCORS = "https://wage4urck0.execute-api.us-west-2.amazonaws.com/production/v4";
 const userKey = '634b219991f28ec8c656387de180af49';
 
 const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
@@ -26,11 +26,12 @@ const PageDescriptifJeu = ({slug,changerTitreCallBack}) => {
                 const fetchPosts = async () => {
                         setLoading(true);
                         const res = await axios({
-                                url: ""+proxyCORS+"https://api-v3.igdb.com/games",
+                                url: ""+proxyCORS+"/games",
                                 method: 'POST',
                                 headers: {
                                         'Accept': 'application/json',
-                                        'user-key': userKey
+                                        'Client-ID': 'ihy9f5zq0w2rrbgkoki37haek5vgbl',
+                                        'Authorization': 'Bearer vjnqkp2lf9vpg5d6j9er82nzjgdsj1'
                                 },
                                 data: req
                         });
