@@ -3,10 +3,6 @@ import {Container, Icon, Pagination} from "semantic-ui-react";
 import axios from "axios";
 import Cartes from "./Cartes";
 
-
-const proxyCORS = "https://polar-anchorage-64302.herokuapp.com/";
-const userKey = 'Bearer vjnqkp2lf9vpg5d6j9er82nzjgdsj1';
-
 const PageResultat = ({req}) => {
     const [requete] = useState(req);
     const [posts, setPosts] = useState([]);
@@ -18,13 +14,13 @@ const PageResultat = ({req}) => {
         const fetchPosts = async () => {
             setLoading(true);
             const res = await axios({
-                url: ""+proxyCORS+"https://api.igdb.com/v4/games",
+                url: ""+process.env.corsLink+"https://api.igdb.com/v4/games",
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'x-requested-with': 'XMLHTTPREQUEST',
-                    'Client-ID': 'ihy9f5zq0w2rrbgkoki37haek5vgbl',
-                    'Authorization': 'Bearer vjnqkp2lf9vpg5d6j9er82nzjgdsj1'
+                    'Client-ID': process.env.ClientID,
+                    'Authorization': process.env.Authorization
                 },
                 data: requete+"limit 200;"
             });
