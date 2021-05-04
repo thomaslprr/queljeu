@@ -4,7 +4,7 @@ import axios from "axios";
 import Cartes from "./Cartes";
 
 
-const proxyCORS = "https://wage4urck0.execute-api.us-west-2.amazonaws.com/production/v4";
+const proxyCORS = "https://polar-anchorage-64302.herokuapp.com/";
 const userKey = 'Bearer vjnqkp2lf9vpg5d6j9er82nzjgdsj1';
 
 const PageResultat = ({req}) => {
@@ -18,10 +18,11 @@ const PageResultat = ({req}) => {
         const fetchPosts = async () => {
             setLoading(true);
             const res = await axios({
-                url: ""+proxyCORS+"/games",
+                url: ""+proxyCORS+"https://api.igdb.com/v4/games",
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
+                    'x-requested-with': 'XMLHTTPREQUEST',
                     'Client-ID': 'ihy9f5zq0w2rrbgkoki37haek5vgbl',
                     'Authorization': 'Bearer vjnqkp2lf9vpg5d6j9er82nzjgdsj1'
                 },

@@ -9,7 +9,7 @@ import PageFiltre from "./PageDeQuestions/PageFiltre";
 import {Container, Progress} from "semantic-ui-react";
 
 
-const proxyCORS = "https://wage4urck0.execute-api.us-west-2.amazonaws.com/production/v4";
+const proxyCORS = "https://polar-anchorage-64302.herokuapp.com/";
 const userKey = '634b219991f28ec8c656387de180af49';
 
 const texteQuizz = [{titre:"Plateforme",desc:"Sélectionne les plateformes sur lesquelles tu veux jouer"},
@@ -132,11 +132,13 @@ class Questionnaire extends React.Component {
     async componentDidMount() {
         //on charge tous les genres de l'api
         await axios({
-            url: ""+proxyCORS+"/genres",
+            url: ""+proxyCORS+"https://api.igdb.com/v4/genres",
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'user-key': userKey
+                'x-requested-with': 'XMLHTTPREQUEST',
+                'Client-ID': 'ihy9f5zq0w2rrbgkoki37haek5vgbl',
+                'Authorization': 'Bearer vjnqkp2lf9vpg5d6j9er82nzjgdsj1'
             },
             data: "fields created_at,name,slug,updated_at,url; limit 500;"
         })
@@ -163,11 +165,13 @@ class Questionnaire extends React.Component {
 
         //on charge tous les themes de l'api
         await axios({
-            url: ""+proxyCORS+"/themes",
+            url: ""+proxyCORS+"https://api.igdb.com/v4/themes",
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'user-key': userKey
+                'x-requested-with': 'XMLHTTPREQUEST',
+                'Client-ID': 'ihy9f5zq0w2rrbgkoki37haek5vgbl',
+                'Authorization': 'Bearer vjnqkp2lf9vpg5d6j9er82nzjgdsj1'
             },
             data: "fields created_at,name,slug,updated_at,url; limit 500;"
         })
@@ -192,11 +196,13 @@ class Questionnaire extends React.Component {
             });
 
         await axios({
-            url: ""+proxyCORS+"/game_modes",
+            url: ""+proxyCORS+"https://api.igdb.com/v4/game_modes",
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'user-key': userKey
+                'x-requested-with': 'XMLHTTPREQUEST',
+                'Client-ID': 'ihy9f5zq0w2rrbgkoki37haek5vgbl',
+                'Authorization': 'Bearer vjnqkp2lf9vpg5d6j9er82nzjgdsj1'
             },
             data: "fields created_at,name,slug,updated_at,url;"
         })
@@ -219,12 +225,14 @@ class Questionnaire extends React.Component {
             });
 
          await axios({
-            url: ""+proxyCORS+"/player_perspectives",
+            url: ""+proxyCORS+"https://api.igdb.com/v4/player_perspectives",
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'user-key': userKey
-            },
+             headers: {
+                 'Accept': 'application/json',
+                 'x-requested-with': 'XMLHTTPREQUEST',
+                 'Client-ID': 'ihy9f5zq0w2rrbgkoki37haek5vgbl',
+                 'Authorization': 'Bearer vjnqkp2lf9vpg5d6j9er82nzjgdsj1'
+             },
             data: "fields created_at,name,slug,updated_at,url;"
         })
             .then(response => {
